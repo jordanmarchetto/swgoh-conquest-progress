@@ -11,6 +11,7 @@ class Team extends Component {
         return (
             <div className="team-wrapper">
                 <table>
+                    <tbody>
                     <tr>
                         <td>{team[0]}</td>
                         <td>{team[1]}</td>
@@ -18,6 +19,7 @@ class Team extends Component {
                         <td>{team[3]}</td>
                         <td>{team[4]}</td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         )

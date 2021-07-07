@@ -19,12 +19,18 @@ class Feat extends Component {
         const completed = true;
         const suggested_team_1 = ["JKR", "JMLS", "JKL", "GAS", "Wat"]; //example team
         const suggested_team_2 = ["CLS rebels"];
+
+        //{ id: "4", mode: "hard", title: "Bombs Away", description: "Inflict at least 100 Thermal Detonators on enemies", count: "100", tags: [], sector: "3" },
+        const {id, mode, title, description, count, tags, sector} = this.props.data;
+        const progress = "0";
+        const keycards = this.props.keycards;
+
         return (
             <div className="feat-wrapper">
-                <h2>{this.props.title}</h2>
-                <p>{this.props.progress}</p>
-                <span>{this.props.id}</span><br/>
-                Worth <span>{this.props.keycards}</span> Keycards
+                <h2>{title} - {mode}</h2>
+                <p>{description}</p>
+                <p>{count}</p>
+                Worth <span>{keycards}</span> Keycards
                 <br />
                 <Button variant="contained" color="default" endIcon={<Add>add</Add>}> Add </Button>
                 <Button variant="contained" color="default" endIcon={<Remove>remove</Remove>}> Remove </Button>

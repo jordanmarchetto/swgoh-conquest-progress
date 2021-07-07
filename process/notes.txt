@@ -1,0 +1,49 @@
+SWGOH Conquest Progress Tracker
+
+Data:
+
+Getting Feats:
+//https://wiki.swgoh.help/wiki/Conquest#Conquest_Feats
+var count = 0;
+var output = "";
+$("#feats tr").each(function(){
+		var title = $(this).find("th").text().trim();
+		var desc = $(this).find("td:first").text();
+		var sector = $(this).find("td:nth-child(3)").text().trim();
+
+		//some rows use "NORMAL", some "Normal", and some "ALL"
+		if(desc.indexOf("NORMAL")>-1){
+		var d_normal = desc.split("NORMAL")[1];
+		d_normal = d_normal.split("HARD")[0].trim();
+		var d_hard = desc.split("HARD")[1].trim();
+		} else if (desc.indexOf("Normal")>-1) {
+		var d_normal = desc.split("Normal")[1];
+		d_normal = d_normal.split("Hard")[0].trim();
+		var d_hard = desc.split("Hard")[1].trim();
+		} else if (desc.indexOf("ALL")>-1){
+		var d_normal = desc.split("ALL")[1];
+		var d_hard = desc.split("ALL")[1];
+		}
+
+		output += '{id: "'+count+'", mode: "hard", title: "'+title+'", description: "'+d_hard+'", count: "ZZ", tags: [], sector: "'+sector+'" },\n';
+		count++;
+		output += '{id: "'+count+'", mode: "normal", title: "'+title+'", description: "'+d_normal+'", count: "ZZ", tags: [], sector: "'+sector+'" },\n';
+		count++;
+
+});
+console.log(output);
+
+
+
+
+
+
+TODO:
+- show sectors, goals per sectors
+- recommend teams based on feat (pull from swgoh.gg?)
+- show days left
+- share/save progress via string 
+- support for normal AND hard
+- manage datadisks
+- submit teams
+- calculate CAT/RC unlock progress

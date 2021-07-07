@@ -26,8 +26,17 @@ class SectorPanel extends Component {
         this.setState({ open: !this.state.open });
     }
     render() {
-        const title = this.props.title;
         const open = this.state.open;
+        const {title, keycards_each, feats} = this.props;
+        console.log(this.props.title);
+        console.dir(feats);
+
+        let feats_elems = "";
+        if (feats !== undefined) {
+            feats_elems = feats.map((feat) => <Feat data={feat} keycards={keycards_each} />);
+        }
+
+
         return (
             <div className="sector-panel" onClick={this.handleClick}>
                 <div className="panel-heading">
@@ -36,9 +45,8 @@ class SectorPanel extends Component {
                 </div>
                 {open === true ?
                     <div className="panel-content">
-                        <BattleStars stars_3="3" stars_2="8" stars_1="2"/>
-                        <Feat title="Feat Title" progress="Critical Hits 0/30" id="0" keycards="2"/>
-                        <Feat title="Feat Title" progress="No tanks 0/20" id="0" keycards="7"/>
+                        <BattleStars stars_3="3" stars_2="8" stars_1="2" />
+                        {feats_elems}
                         <BossFeat title="Feat Title" progress="No tanks 0/20" id="0" />
 
                     </div>
