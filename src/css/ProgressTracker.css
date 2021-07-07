@@ -1,0 +1,46 @@
+/**
+* Styles for ProgressTracker and all sub-components
+**/
+
+/** GENERAL **/
+.progress-tracker{
+    width: 90%;
+    display: block;
+    margin:0 auto;
+}
+/** END GENERAL **/
+
+
+/** SECTORS **/
+.sector-panel{
+    margin-bottom:15px;
+    padding: 0px 10px;
+    border: 1px solid black;
+    background: var(--secondary-color);
+    color: var(--secondary-color-text);
+    border-radius: 5px;
+}
+.sector-panel:hover{
+    border: 1px solid green;
+    cursor: pointer;
+}
+.sector-panel .panel-heading{
+    display:flex;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+.sector-panel .panel-heading h1{
+    padding:0px;
+    margin:0px;
+    display: inline-block;
+}
+/** END SECTORS **/
+
+
+/** FEATS **/
+.feat-wrapper{
+    border: 1px solid black;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+/** END FEATS **/
