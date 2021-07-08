@@ -1,9 +1,19 @@
 SWGOH Conquest Progress Tracker
 
-Data:
+Data Structures:
+
+Conquest Template:
+object containing all feats, details, etc about conquest.  this object will likely contain info/feats that aren't currently in use by active conquest
+
+Conquest Progress:
+object containing info about the user's progress in the current conquest.  this info should be stored in user's local storage
+
+Teams:
+array of potential teams, linked up to what tags/feats they might be suited for
 
 Getting Feats:
 //https://wiki.swgoh.help/wiki/Conquest#Conquest_Feats
+//find the table, update dom: add #feats to table, delete first/header row
 var count = 0;
 var output = "";
 $("#feats tr").each(function(){
@@ -41,9 +51,12 @@ console.log(output);
 TODO:
 - show sectors, goals per sectors
 - recommend teams based on feat (pull from swgoh.gg?)
+- pull teams' images from swgoh.gg
 - show days left
 - share/save progress via string 
 - support for normal AND hard
 - manage datadisks
+- manage/suggest boosters
 - submit teams
 - calculate CAT/RC unlock progress
+- move template to DB, pull via api
