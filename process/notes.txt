@@ -35,9 +35,9 @@ $("#feats tr").each(function(){
 		var d_hard = desc.split("ALL")[1];
 		}
 
-		output += '{id: "'+count+'", mode: "hard", title: "'+title+'", description: "'+d_hard+'", count: "ZZ", tags: [], sector: "'+sector+'" },\n';
+		output += '{id: "'+count+'", type: "XX", mode: "hard", title: "'+title+'", description: "'+d_hard+'", goal: "ZZ", tags: [], sector: "'+sector+'", active: "true" },\n';
 		count++;
-		output += '{id: "'+count+'", mode: "normal", title: "'+title+'", description: "'+d_normal+'", count: "ZZ", tags: [], sector: "'+sector+'" },\n';
+		output += '{id: "'+count+'", type: "XX", mode: "normal", title: "'+title+'", description: "'+d_normal+'", goal: "ZZ", tags: [], sector: "'+sector+'", active: "true" },\n';
 		count++;
 
 });
@@ -60,3 +60,5 @@ TODO:
 - submit teams
 - calculate CAT/RC unlock progress
 - move template to DB, pull via api
+- keycard/chest progress floats to top
+- manual keycard adjust (in case something's off, just add an easy way to change it)
