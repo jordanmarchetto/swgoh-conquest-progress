@@ -57,8 +57,8 @@ class Feat extends Component {
                 <p>current count is: {count}, goal is: {goal}, complete is: {complete}</p>
                 Worth <span>{keycards}</span> Keycards
                 <br />
-                <Button onClick={this.incrementCount} variant="contained" color="default" endIcon={<Add>add</Add>}> Add </Button>
-                <Button onClick={this.decrementCount} variant="contained" color="default" endIcon={<Remove>remove</Remove>}> Remove </Button>
+                <Button onClick={this.incrementCount} variant="contained" color="default" endIcon={<Add>add</Add>}></Button>
+                <Button onClick={this.decrementCount} variant="contained" color="default" endIcon={<Remove>remove</Remove>}></Button>
 
                 <FormControlLabel
                     control={

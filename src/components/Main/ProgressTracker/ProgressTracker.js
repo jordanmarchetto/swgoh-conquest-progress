@@ -3,11 +3,24 @@
  * main component for the app; houses all the stuff needed for the conquest progress tracker
  */
 
+//components
 import React, { Component } from 'react';
 import ChestProgress from './ChestProgress';
 import TimeLeft from './TimeLeft';
 import SectorPanel from './SectorPanel';
+import { TextField } from '@material-ui/core';
+//css:
 import '../../../css/ProgressTracker.css';
+//images:
+import img_crate_01 from '../../../images/crate_01.png';
+import img_crate_02 from '../../../images/crate_02.png';
+import img_crate_03 from '../../../images/crate_03.png';
+import img_crate_04 from '../../../images/crate_04.png';
+import img_crate_05 from '../../../images/crate_05.png';
+import img_crate_06 from '../../../images/crate_06.png';
+import img_crate_07 from '../../../images/crate_07.png';
+import img_shard_commander_ahsoka_tano from '../../../images/shard_commander_ahsoka_tano.png';
+import img_shard_razor_crest from '../../../images/shard_razor_crest.png';
 
 class ProgressTracker extends Component {
 
@@ -122,19 +135,20 @@ class ProgressTracker extends Component {
                 { id: "79", type: "boss", mode: "normal", title: "Recovery Expert", description: "Recover at least 300,000 points of Health", goal: "1", tags: [], sector: "5", active: "true" },
             ],
             chests: [
-                { id: "0", description: "Hard-01", keycards_needed: "65", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25 }, { item_name: "Razor Crest", quantity: 20 },] },
-                { id: "1", description: "Hard-02", keycards_needed: "120", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 30 }, { item_name: "Razor Crest", quantity: 24 },] },
-                { id: "2", description: "Hard-03", keycards_needed: "155", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 35 }, { item_name: "Razor Crest", quantity: 28 },] },
-                { id: "3", description: "Hard-04", keycards_needed: "255", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 40 }, { item_name: "Razor Crest", quantity: 32 },] },
-                { id: "4", description: "Hard-05", keycards_needed: "290", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 50 }, { item_name: "Razor Crest", quantity: 36 },] },
-                { id: "5", description: "Hard-06", keycards_needed: "360", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 65 }, { item_name: "Razor Crest", quantity: 40 },] },
-                { id: "6", description: "Hard-07", keycards_needed: "425", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90 }, { item_name: "Razor Crest", quantity: 44 },] },
+                { id: "0", description: "Hard-01", keycards_needed:  "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 20, icon: img_shard_razor_crest },] },
+                { id: "1", description: "Hard-02", keycards_needed: "120", icon: img_crate_02, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 30, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 24, icon: img_shard_razor_crest  },] },
+                { id: "2", description: "Hard-03", keycards_needed: "155", icon: img_crate_03, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 35, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 28, icon: img_shard_razor_crest  },] },
+                { id: "3", description: "Hard-04", keycards_needed: "255", icon: img_crate_04, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 40, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 32, icon: img_shard_razor_crest  },] },
+                { id: "4", description: "Hard-05", keycards_needed: "290", icon: img_crate_05, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 50, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 36, icon: img_shard_razor_crest  },] },
+                { id: "5", description: "Hard-06", keycards_needed: "360", icon: img_crate_06, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 65, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 40, icon: img_shard_razor_crest  },] },
+                { id: "6", description: "Hard-07", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 44, icon: img_shard_razor_crest  },] },
             ]
         };
 
         //Data structure for user's progress
         const DATA_CONQUEST_PROGRESS = {
             keycards: 9,
+            keycard_offset: 2,
             mode: "hard",
             feats: [{ id: "4", count: "500", complete: "true", keycards: "9" }, { id: "6", count: "22", complete: "false" }, { id: "2", count: "43", complete: "false" }, { id: "24", count: "15", complete: "false" }, { id: "34", count: "69", complete: "false" }, { id: "44", count: "77", complete: "false" }],
             //battle progress
@@ -181,17 +195,26 @@ class ProgressTracker extends Component {
         //loop through progress array, if feat has keycards associated and is complete, add it to the total
         progress.feats.forEach(feat => keycard_count += (feat.keycards && feat.complete === "true") ? Number(feat.keycards) : 0);
 
+        //also get the manually set offset
+        keycard_count += Number(progress.keycard_offset);
+        //update the progress obj 
         progress.keycards = keycard_count;
 
         //figure out what chest we're on
         const chests = this.state.conquest_template.chests;
-
         let active_chest = false;
+
+        //loop through the chests in order and snag the highest, valid chest
         chests.forEach(chest => {
             if (!active_chest && keycard_count < chest.keycards_needed) {
                 active_chest = chest;
             }
         })
+
+        //in case we go over (somehow? via offset?), just make sure we select A chest
+        if(active_chest === false){
+            active_chest = chests[chests.length-1];
+        }
 
         //push it to the state
         this.setState({ progress: progress, active_chest: active_chest });
@@ -221,6 +244,14 @@ class ProgressTracker extends Component {
         }
     }
 
+    //handler for changing the keycard offset
+    updateKeycardOffset = (e) => {
+        let val = e.target.value;
+        let progress = this.state.progress;
+        progress.keycard_offset = val;
+        this.setState({progress: progress});
+        this.calculateKeycards();
+    }
 
     //update the state/progress for the given id/val obj
     // progress_update contains: {id: "0", count: "1", keycards: "5", complete: "true/false"}
@@ -284,6 +315,18 @@ class ProgressTracker extends Component {
                 <SectorPanel title="Sector 3" type="sector" feats={s3_feats} keycards_each="10" progress={progress} onProgressUpdate={this.updateProgress} />
                 <SectorPanel title="Sector 4" type="sector" feats={s4_feats} keycards_each="10" progress={progress} onProgressUpdate={this.updateProgress} />
                 <SectorPanel title="Sector 5" type="sector" feats={s5_feats} keycards_each="15" progress={progress} onProgressUpdate={this.updateProgress} />
+                <TextField
+                    id="keycard_offset"
+                    label="Keycard Offset"
+                    type="number"
+                    name="keycard_offset"
+                    value={progress.keycard_offset}
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    variant="outlined"
+                    onChange={this.updateKeycardOffset}
+                />
                 <p>notes</p>
             </div>
         )

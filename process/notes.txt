@@ -49,11 +49,12 @@ TODO:
 visuals/utility:
 X - show sectors, goals per sectors
 X - show days left
-- keycard/chest progress floats to top
-- manual keycard adjust (in case something's off, just add an easy way to change it)
-- implement chest tracker
-- add imagery
+X - manual keycard adjust (in case something's off, just add an easy way to change it)
+X - keycard/chest progress floats to top
+X - implement chest tracker
+X - add imagery
 - support for normal AND hard
+- add feat status "maybe" and add the hypothetical keycard count
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)

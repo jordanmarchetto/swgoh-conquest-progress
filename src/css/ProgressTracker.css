@@ -50,3 +50,39 @@
     border-color: var(--complete);
 }
 /** END FEATS **/
+
+/** CHESTS **/
+.chest-progress{
+    border: 1px solid black;
+    border-radius: 5px;
+    background: white;
+    margin-bottom:10px;
+    padding: 10px;
+}
+.crate-icon{
+    max-height: 60px;
+}
+.reward-icon{
+    max-height: 30px;
+}
+.currency-icon{
+    max-height: 20px;
+}
+.reward-row{
+    margin-left: 15px;
+}
+
+/** styles when stuck **/
+.sticky{
+    z-index: 05221989;
+}
+.sticky .chest-progress{
+    background: var(--primary-light);
+}
+.sticky .chest-progress .hide-on-stuck{
+    display: none;;
+}
+.sticky .crate-icon{
+    max-height: 30px;
+}
+/** END CHESTS **/
