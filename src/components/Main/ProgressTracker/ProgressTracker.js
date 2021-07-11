@@ -5,6 +5,7 @@
 
 import React, { Component } from 'react';
 import ChestProgress from './ChestProgress';
+import TimeLeft from './TimeLeft';
 import SectorPanel from './SectorPanel';
 import '../../../css/ProgressTracker.css';
 
@@ -34,7 +35,7 @@ class ProgressTracker extends Component {
         //Data structure for conquest, all feats, etc
         //https://wiki.swgoh.help/wiki/Conquest
         const DATA_CONQUEST_TEMPLATE = {
-            end_date: "7/19/2021",
+            end_date: "Mon Jul 19 2021 14:00:00 GMT-0400 (Eastern Daylight Time)",
             all_feats: [
                 //event feats:
                 { id: "0", type: "event", mode: "hard", title: "Brute Force", description: "Deal at least 2,000,000 Physical damage", goal: "1", tags: [], sector: "None", active: "false" },
@@ -133,16 +134,30 @@ class ProgressTracker extends Component {
 
         //Data structure for user's progress
         const DATA_CONQUEST_PROGRESS = {
-            keycards: 200,
+            keycards: 9,
             mode: "hard",
-            feats: [{ id: "4", count: "21", complete: "false" }, { id: "6", count: "22", complete: "false" }, { id: "2", count: "43", complete: "false" }, { id: "24", count: "15", complete: "false" }, { id: "34", count: "69", complete: "false" }, { id: "44", count: "77", complete: "false" }],
+            feats: [{ id: "4", count: "500", complete: "true", keycards: "9" }, { id: "6", count: "22", complete: "false" }, { id: "2", count: "43", complete: "false" }, { id: "24", count: "15", complete: "false" }, { id: "34", count: "69", complete: "false" }, { id: "44", count: "77", complete: "false" }],
             //battle progress
         }
 
-        this.state = { teams: DATA_TEAMS, conquest_template: DATA_CONQUEST_TEMPLATE, progress: DATA_CONQUEST_PROGRESS };
+        //push it to the state
+        this.state = {
+            teams: DATA_TEAMS,
+            conquest_template: DATA_CONQUEST_TEMPLATE,
+            progress: DATA_CONQUEST_PROGRESS,
+            active_chest: {},
+            event_feats: [],
+            s1_feats: [],
+            s2_feats: [],
+            s3_feats: [],
+            s4_feats: [],
+            s5_feats: []
+        };
+
     }
 
-    componentDidMount() {
+    //loop through the conquest template, and break out the feats into sectors/etc that are relevant
+    findActiveFeats() {
         let all_feats = this.state.conquest_template.all_feats;
         let mode = this.state.progress.mode;
 
@@ -157,6 +172,37 @@ class ProgressTracker extends Component {
 
         //store the active feats in the state
         this.setState({ event_feats: active_event_feats, s1_feats: sector_1_feats, s2_feats: sector_2_feats, s3_feats: sector_3_feats, s4_feats: sector_4_feats, s5_feats: sector_5_feats });
+    }
+
+    //determines how many keycards have been earned
+    calculateKeycards() {
+        let progress = this.state.progress;
+        let keycard_count = 0;
+        //loop through progress array, if feat has keycards associated and is complete, add it to the total
+        progress.feats.forEach(feat => keycard_count += (feat.keycards && feat.complete === "true") ? Number(feat.keycards) : 0);
+
+        progress.keycards = keycard_count;
+
+        //figure out what chest we're on
+        const chests = this.state.conquest_template.chests;
+
+        let active_chest = false;
+        chests.forEach(chest => {
+            if (!active_chest && keycard_count < chest.keycards_needed) {
+                active_chest = chest;
+            }
+        })
+
+        //push it to the state
+        this.setState({ progress: progress, active_chest: active_chest });
+    }
+
+    //runs after first render(), but that's fine
+    componentDidMount() {
+        //figure out which feats we care about.
+        this.findActiveFeats();
+        //count your cards
+        this.calculateKeycards();
     }
 
     //returns a feat obj
@@ -175,16 +221,6 @@ class ProgressTracker extends Component {
         }
     }
 
-    //determines how many keycards have been earned
-    calculateKeycards() {
-        let progress = this.state.progress;
-        let count = 0;
-        //loop through progress array, if feat has keycards associated and is complete, add it to the total
-        progress.feats.forEach(feat => count += (feat.keycards && feat.complete === "true") ? Number(feat.keycards) : 0);
-
-        progress.keycards = count;
-        this.setState({ progress: progress });
-    }
 
     //update the state/progress for the given id/val obj
     // progress_update contains: {id: "0", count: "1", keycards: "5", complete: "true/false"}
@@ -231,18 +267,17 @@ class ProgressTracker extends Component {
     }
 
     render() {
-        let keycards = this.state.progress.keycards;
-        let keycards_needed = this.state.conquest_template.chests[0].keycards_needed;
-        let days_left = 12;
-        let end_date = this.state.conquest_template.end_date;
-
-        const { event_feats, s1_feats, s2_feats, s3_feats, s4_feats, s5_feats, progress } = this.state;
+        const { event_feats, s1_feats, s2_feats, s3_feats, s4_feats, s5_feats, progress, active_chest } = this.state;
+        const end_date = this.state.conquest_template.end_date;
 
         return (
             <div className="progress-tracker">
-                progress: {JSON.stringify(progress)}
-                <br />
-                <ChestProgress keycards={keycards} keycards_needed={keycards_needed} days_left={days_left} end_date={end_date} />
+                <div className="hidden">
+                    progress: {JSON.stringify(progress)}
+                    <br />
+                </div>
+                <TimeLeft end_date={end_date} />
+                <ChestProgress keycards={progress.keycards} active_chest={active_chest} />
                 <SectorPanel title="Event Feats" startOpen={true} type="event" feats={event_feats} keycards_each="9" progress={progress} onProgressUpdate={this.updateProgress} />
                 <SectorPanel title="Sector 1" type="sector" feats={s1_feats} keycards_each="5" progress={progress} onProgressUpdate={this.updateProgress} />
                 <SectorPanel title="Sector 2" type="sector" feats={s2_feats} keycards_each="5" progress={progress} onProgressUpdate={this.updateProgress} />

@@ -45,20 +45,23 @@ console.log(output);
 
 
 
-
-
-
 TODO:
-- show sectors, goals per sectors
-- recommend teams based on feat (pull from swgoh.gg?)
-- pull teams' images from swgoh.gg
-- show days left
-- share/save progress via string 
-- support for normal AND hard
-- manage datadisks
-- manage/suggest boosters
-- submit teams
-- calculate CAT/RC unlock progress
-- move template to DB, pull via api
+visuals/utility:
+X - show sectors, goals per sectors
+X - show days left
 - keycard/chest progress floats to top
 - manual keycard adjust (in case something's off, just add an easy way to change it)
+- implement chest tracker
+- add imagery
+- support for normal AND hard
+team features:
+- pull teams' images from swgoh.gg
+- recommend teams based on feat (pull from swgoh.gg?)
+- submit teams
+db/progress:
+- share/save progress via string 
+- move template to DB, pull via api
+- calculate CAT/RC unlock progress
+beyond progress:
+- manage datadisks
+- manage/suggest boosters
