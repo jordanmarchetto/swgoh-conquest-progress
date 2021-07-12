@@ -135,13 +135,13 @@ class ProgressTracker extends Component {
                 { id: "79", type: "boss", mode: "normal", title: "Recovery Expert", description: "Recover at least 300,000 points of Health", goal: "1", tags: [], sector: "5", active: "true" },
             ],
             chests: [
-                { id: "0", description: "Hard-01", keycards_needed:  "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 20, icon: img_shard_razor_crest },] },
-                { id: "1", description: "Hard-02", keycards_needed: "120", icon: img_crate_02, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 30, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 24, icon: img_shard_razor_crest  },] },
-                { id: "2", description: "Hard-03", keycards_needed: "155", icon: img_crate_03, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 35, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 28, icon: img_shard_razor_crest  },] },
-                { id: "3", description: "Hard-04", keycards_needed: "255", icon: img_crate_04, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 40, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 32, icon: img_shard_razor_crest  },] },
-                { id: "4", description: "Hard-05", keycards_needed: "290", icon: img_crate_05, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 50, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 36, icon: img_shard_razor_crest  },] },
-                { id: "5", description: "Hard-06", keycards_needed: "360", icon: img_crate_06, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 65, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 40, icon: img_shard_razor_crest  },] },
-                { id: "6", description: "Hard-07", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90, icon: img_shard_commander_ahsoka_tano  }, { item_name: "Razor Crest", quantity: 44, icon: img_shard_razor_crest  },] },
+                { id: "0", description: "Hard-01", keycards_needed: "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 20, icon: img_shard_razor_crest },] },
+                { id: "1", description: "Hard-02", keycards_needed: "120", icon: img_crate_02, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 30, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 24, icon: img_shard_razor_crest },] },
+                { id: "2", description: "Hard-03", keycards_needed: "155", icon: img_crate_03, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 35, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 28, icon: img_shard_razor_crest },] },
+                { id: "3", description: "Hard-04", keycards_needed: "255", icon: img_crate_04, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 40, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 32, icon: img_shard_razor_crest },] },
+                { id: "4", description: "Hard-05", keycards_needed: "290", icon: img_crate_05, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 50, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 36, icon: img_shard_razor_crest },] },
+                { id: "5", description: "Hard-06", keycards_needed: "360", icon: img_crate_06, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 65, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 40, icon: img_shard_razor_crest },] },
+                { id: "6", description: "Hard-07", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 44, icon: img_shard_razor_crest },] },
             ]
         };
 
@@ -212,8 +212,8 @@ class ProgressTracker extends Component {
         })
 
         //in case we go over (somehow? via offset?), just make sure we select A chest
-        if(active_chest === false){
-            active_chest = chests[chests.length-1];
+        if (active_chest === false) {
+            active_chest = chests[chests.length - 1];
         }
 
         //push it to the state
@@ -249,7 +249,16 @@ class ProgressTracker extends Component {
         let val = e.target.value;
         let progress = this.state.progress;
         progress.keycard_offset = val;
-        this.setState({progress: progress});
+        this.setState({ progress: progress });
+        this.calculateKeycards();
+    }
+
+    //handler for updating notes
+    updateProgressNotes = (e) => {
+        let val = e.target.value;
+        let progress = this.state.progress;
+        progress.notes = val;
+        this.setState({ progress: progress });
         this.calculateKeycards();
     }
 
@@ -327,7 +336,23 @@ class ProgressTracker extends Component {
                     variant="outlined"
                     onChange={this.updateKeycardOffset}
                 />
-                <p>notes</p>
+                <br />
+                <br />
+                <TextField
+                    id="progress_notes"
+                    label="Notes"
+                    multiline
+                    rows={4}
+                    type="number"
+                    placeholder="Notes"
+                    value={progress.notes}
+                    onChange={this.updateProgressNotes}
+                    name="progress_notes"
+                    InputLabelProps={{
+                        shrink: true,
+                    }}
+                    variant="outlined"
+                />
             </div>
         )
     }

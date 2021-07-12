@@ -3,6 +3,9 @@
 **/
 
 .footer-wrapper {
-    padding: 0 1em;
-  }
+  padding: 0 1em;
+}
   
+.show-hidden-button{
+  margin-left: 10px;
+}
