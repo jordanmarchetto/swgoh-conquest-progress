@@ -53,8 +53,14 @@ X - manual keycard adjust (in case something's off, just add an easy way to chan
 X - keycard/chest progress floats to top
 X - implement chest tracker
 X - add imagery
+X - update app title
 - support for normal AND hard
 - add feat status "maybe" and add the hypothetical keycard count
+- implement notes field
+- implement battle stars
+- implment boss tracking
+- desktop media query
+- deploy script
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)

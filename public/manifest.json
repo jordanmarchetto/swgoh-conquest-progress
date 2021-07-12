@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Conquest Tracker",
+  "name": "Tracker for conquests in SWGOH",
   "icons": [
     {
       "src": "favicon.ico",
