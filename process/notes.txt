@@ -54,9 +54,10 @@ X - keycard/chest progress floats to top
 X - implement chest tracker
 X - add imagery
 X - update app title
+X - implement notes field
+X - add progress bar to current chest/crate
 - support for normal AND hard
 - add feat status "maybe" and add the hypothetical keycard count
-- implement notes field
 - implement battle stars
 - implment boss tracking
 - desktop media query

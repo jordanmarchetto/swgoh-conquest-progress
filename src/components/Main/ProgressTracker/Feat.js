@@ -4,7 +4,7 @@
  */
 import React, { Component } from 'react';
 //https://material-ui.com/components/buttons/
-import { Button, Checkbox, FormControlLabel } from '@material-ui/core';
+import { Checkbox, FormControlLabel, IconButton } from '@material-ui/core';
 import { Add, Remove } from '@material-ui/icons';
 import Team from "./Team";
 
@@ -57,8 +57,8 @@ class Feat extends Component {
                 <p>current count is: {count}, goal is: {goal}, complete is: {complete}</p>
                 Worth <span>{keycards}</span> Keycards
                 <br />
-                <Button onClick={this.incrementCount} variant="contained" color="default" endIcon={<Add>add</Add>}></Button>
-                <Button onClick={this.decrementCount} variant="contained" color="default" endIcon={<Remove>remove</Remove>}></Button>
+                <IconButton aria-label="add" onClick={this.incrementCount} color="default"><Add /></IconButton>
+                <IconButton aria-label="remove" onClick={this.decrementCount} color="default"><Remove /></IconButton>
 
                 <FormControlLabel
                     control={

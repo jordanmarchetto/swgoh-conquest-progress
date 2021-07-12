@@ -160,6 +160,7 @@ class ProgressTracker extends Component {
             conquest_template: DATA_CONQUEST_TEMPLATE,
             progress: DATA_CONQUEST_PROGRESS,
             active_chest: {},
+            prev_chest_max: 0,
             event_feats: [],
             s1_feats: [],
             s2_feats: [],
@@ -203,12 +204,16 @@ class ProgressTracker extends Component {
         //figure out what chest we're on
         const chests = this.state.conquest_template.chests;
         let active_chest = false;
+        let prev_chest_max = 0; //track the last chest, so we can come up with more meaningful chest %
+        let prev_chest = {keycards_needed: 0}; //in ChestProgress, we'll do keycards/keycards_needed, and we want it to be for the current chest
 
         //loop through the chests in order and snag the highest, valid chest
         chests.forEach(chest => {
             if (!active_chest && keycard_count < chest.keycards_needed) {
                 active_chest = chest;
+                prev_chest_max = prev_chest.keycards_needed;
             }
+            prev_chest = chest;
         })
 
         //in case we go over (somehow? via offset?), just make sure we select A chest
@@ -217,7 +222,7 @@ class ProgressTracker extends Component {
         }
 
         //push it to the state
-        this.setState({ progress: progress, active_chest: active_chest });
+        this.setState({ progress: progress, active_chest: active_chest, prev_chest_max: prev_chest_max });
     }
 
     //runs after first render(), but that's fine
@@ -307,7 +312,7 @@ class ProgressTracker extends Component {
     }
 
     render() {
-        const { event_feats, s1_feats, s2_feats, s3_feats, s4_feats, s5_feats, progress, active_chest } = this.state;
+        const { event_feats, s1_feats, s2_feats, s3_feats, s4_feats, s5_feats, progress, active_chest, prev_chest_max } = this.state;
         const end_date = this.state.conquest_template.end_date;
 
         return (
@@ -317,7 +322,7 @@ class ProgressTracker extends Component {
                     <br />
                 </div>
                 <TimeLeft end_date={end_date} />
-                <ChestProgress keycards={progress.keycards} active_chest={active_chest} />
+                <ChestProgress keycards={progress.keycards} active_chest={active_chest} prev_chest_max={prev_chest_max} />
                 <SectorPanel title="Event Feats" startOpen={true} type="event" feats={event_feats} keycards_each="9" progress={progress} onProgressUpdate={this.updateProgress} />
                 <SectorPanel title="Sector 1" type="sector" feats={s1_feats} keycards_each="5" progress={progress} onProgressUpdate={this.updateProgress} />
                 <SectorPanel title="Sector 2" type="sector" feats={s2_feats} keycards_each="5" progress={progress} onProgressUpdate={this.updateProgress} />
