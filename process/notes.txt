@@ -67,7 +67,8 @@ team features:
 - recommend teams based on feat (pull from swgoh.gg?)
 - submit teams
 db/progress:
-- share/save progress via string 
+X - share/save progress via string 
+X - store progress in browser
 - move template to DB, pull via api
 - calculate CAT/RC unlock progress
 beyond progress:

@@ -146,13 +146,16 @@ class ProgressTracker extends Component {
         };
 
         //Data structure for user's progress
-        const DATA_CONQUEST_PROGRESS = {
-            keycards: 9,
-            keycard_offset: 2,
+        const DEFAULT_CONQUEST_PROGRESS = {
+            keycards: 0,
+            keycard_offset: 0,
             mode: "hard",
-            feats: [{ id: "4", count: "500", complete: "true", keycards: "9" }, { id: "6", count: "22", complete: "false" }, { id: "2", count: "43", complete: "false" }, { id: "24", count: "15", complete: "false" }, { id: "34", count: "69", complete: "false" }, { id: "44", count: "77", complete: "false" }],
+            feats: [ { id: "0", count: "0", complete: "false", keycards: "0" }],            
             //battle progress
         }
+        //get progress from local storage (if possible)
+        const DATA_CONQUEST_PROGRESS = localStorage.getItem('conquest_progress')?JSON.parse(localStorage.getItem('conquest_progress')):DEFAULT_CONQUEST_PROGRESS;
+
 
         //push it to the state
         this.state = {
@@ -222,7 +225,7 @@ class ProgressTracker extends Component {
         }
 
         //push it to the state
-        this.setState({ progress: progress, active_chest: active_chest, prev_chest_max: prev_chest_max });
+        this.updateStateAndLocalStorage({ progress: progress, active_chest: active_chest, prev_chest_max: prev_chest_max });        
     }
 
     //runs after first render(), but that's fine
@@ -254,7 +257,8 @@ class ProgressTracker extends Component {
         let val = e.target.value;
         let progress = this.state.progress;
         progress.keycard_offset = val;
-        this.setState({ progress: progress });
+        //this.setState({ progress: progress });
+        this.updateStateAndLocalStorage({ progress: progress });        
         this.calculateKeycards();
     }
 
@@ -263,7 +267,8 @@ class ProgressTracker extends Component {
         let val = e.target.value;
         let progress = this.state.progress;
         progress.notes = val;
-        this.setState({ progress: progress });
+        //this.setState({ progress: progress });
+        this.updateStateAndLocalStorage({ progress: progress });        
         this.calculateKeycards();
     }
 
@@ -307,8 +312,17 @@ class ProgressTracker extends Component {
         if (!found_entry) {
             progress.feats.push({ id: id, count: count, complete: complete, keycards: keycards });
         }
-        this.setState({ progress: progress });
+        //this.setState({ progress: progress });
+        this.updateStateAndLocalStorage({ progress: progress });
         this.calculateKeycards();
+    }
+
+    //wrapper for setState, will write certain items (i.e. progress) to browser local storage
+    updateStateAndLocalStorage(state){
+        //update everything given in the state
+        this.setState(state);
+        //push the stuff we care about to local storage, likely just progress
+        localStorage.setItem("conquest_progress", JSON.stringify(state.progress));
     }
 
     render() {
