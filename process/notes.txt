@@ -56,12 +56,15 @@ X - add imagery
 X - update app title
 X - implement notes field
 X - add progress bar to current chest/crate
+X - move sectors to conquest template
+X - store info about sectors: num battles, scavenger nodes, etc
 - support for normal AND hard
 - add feat status "maybe" and add the hypothetical keycard count
 - implement battle stars
 - implment boss tracking
 - desktop media query
 - deploy script
+- store UI stuff in localstorage (which panels are open/closed)
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)

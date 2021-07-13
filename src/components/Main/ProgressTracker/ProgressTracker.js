@@ -142,6 +142,14 @@ class ProgressTracker extends Component {
                 { id: "4", description: "Hard-05", keycards_needed: "290", icon: img_crate_05, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 50, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 36, icon: img_shard_razor_crest },] },
                 { id: "5", description: "Hard-06", keycards_needed: "360", icon: img_crate_06, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 65, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 40, icon: img_shard_razor_crest },] },
                 { id: "6", description: "Hard-07", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 44, icon: img_shard_razor_crest },] },
+            ],
+            sectors: [
+                { id: "0", title: "Event Feats", type: "event", feats: [], keycards_each: "9"},
+                { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13"},
+                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13"},
+                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13"},
+                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13"},
+                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13"},
             ]
         };
 
@@ -163,33 +171,29 @@ class ProgressTracker extends Component {
             conquest_template: DATA_CONQUEST_TEMPLATE,
             progress: DATA_CONQUEST_PROGRESS,
             active_chest: {},
-            prev_chest_max: 0,
-            event_feats: [],
-            s1_feats: [],
-            s2_feats: [],
-            s3_feats: [],
-            s4_feats: [],
-            s5_feats: []
+            prev_chest_max: 0
         };
 
     }
 
     //loop through the conquest template, and break out the feats into sectors/etc that are relevant
     findActiveFeats() {
+        let template = this.state.conquest_template;
         let all_feats = this.state.conquest_template.all_feats;
         let mode = this.state.progress.mode;
 
-        //filter out all the related feats based on mode and sector
-        let sector_1_feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === "1" && feat.mode === mode);
-        let sector_2_feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === "2" && feat.mode === mode);
-        let sector_3_feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === "3" && feat.mode === mode);
-        let sector_4_feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === "4" && feat.mode === mode);
-        let sector_5_feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === "5" && feat.mode === mode);
-
-        let active_event_feats = all_feats.filter(feat => feat.type === "event" && feat.active === "true" && feat.mode === mode);
-
-        //store the active feats in the state
-        this.setState({ event_feats: active_event_feats, s1_feats: sector_1_feats, s2_feats: sector_2_feats, s3_feats: sector_3_feats, s4_feats: sector_4_feats, s5_feats: sector_5_feats });
+        //loop through all the states, and then filter out the related feats
+        for(let i=0; i< template.sectors.length; i++){
+            let sector = template.sectors[i];
+            if(sector.type === "event"){
+                sector.feats = all_feats.filter(feat => feat.type === "event" && feat.active === "true" && feat.mode === mode); 
+            } else {
+                sector.feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === sector.id && feat.mode === mode);
+            }
+            template.sectors[i] = sector;
+        }
+        //push it to the state
+        this.setState({conquest_template: template });
     }
 
     //determines how many keycards have been earned
@@ -326,8 +330,10 @@ class ProgressTracker extends Component {
     }
 
     render() {
-        const { event_feats, s1_feats, s2_feats, s3_feats, s4_feats, s5_feats, progress, active_chest, prev_chest_max } = this.state;
+        const { progress, active_chest, prev_chest_max } = this.state;
         const end_date = this.state.conquest_template.end_date;
+
+        const sectors = this.state.conquest_template.sectors.map(s => <SectorPanel key={s.id} sector={s} startOpen={false} progress={progress} onProgressUpdate={this.updateProgress} />);
 
         return (
             <div className="progress-tracker">
@@ -337,12 +343,7 @@ class ProgressTracker extends Component {
                 </div>
                 <TimeLeft end_date={end_date} />
                 <ChestProgress keycards={progress.keycards} active_chest={active_chest} prev_chest_max={prev_chest_max} />
-                <SectorPanel title="Event Feats" startOpen={true} type="event" feats={event_feats} keycards_each="9" progress={progress} onProgressUpdate={this.updateProgress} />
-                <SectorPanel title="Sector 1" type="sector" feats={s1_feats} keycards_each="5" progress={progress} onProgressUpdate={this.updateProgress} />
-                <SectorPanel title="Sector 2" type="sector" feats={s2_feats} keycards_each="5" progress={progress} onProgressUpdate={this.updateProgress} />
-                <SectorPanel title="Sector 3" type="sector" feats={s3_feats} keycards_each="10" progress={progress} onProgressUpdate={this.updateProgress} />
-                <SectorPanel title="Sector 4" type="sector" feats={s4_feats} keycards_each="10" progress={progress} onProgressUpdate={this.updateProgress} />
-                <SectorPanel title="Sector 5" type="sector" feats={s5_feats} keycards_each="15" progress={progress} onProgressUpdate={this.updateProgress} />
+                {sectors}
                 <TextField
                     id="keycard_offset"
                     label="Keycard Offset"

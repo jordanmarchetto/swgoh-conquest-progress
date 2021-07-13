@@ -31,7 +31,8 @@ class SectorPanel extends Component {
     }
     render() {
         const open = this.state.open;
-        const { title, keycards_each, feats, progress, type } = this.props;
+        const { progress } = this.props;
+        const { id, title, keycards_each, feats, type } = this.props.sector;
 
         //progress obj be like:
         //  keycards: 20,
@@ -54,9 +55,9 @@ class SectorPanel extends Component {
                 </div>
                 {open === true ?
                     <div className="panel-content">
-                        {type === "sector" ? <BattleStars stars_3="3" stars_2="8" stars_1="2" /> : ''}
+                        {type === "sector" ? <BattleStars progress={progress} sector_id={id} stars_3="3" stars_2="8" stars_1="2" /> : ''}
                         {feats_elems}
-                        {type === "sector" ? <BossFeat title="Feat Title" progress="No tanks 0/20" id="0" /> : ''}
+                        {type === "sector" ? <BossFeat progress={progress} sector_id={id} title="Feat Title" id="0" /> : ''}
                     </div>
                     : ''}
             </div>
