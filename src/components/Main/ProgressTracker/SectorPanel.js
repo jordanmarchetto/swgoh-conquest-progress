@@ -24,15 +24,28 @@ class SectorPanel extends Component {
 
     //open/close the panel when you click the heading div
     togglePanel = (e) => {
+        let open = !this.state.open;
         //if you hit certain parts of the icon/svg, this won't work, but I don't really care.
         if (e.target.className === "panel-heading" || e.target.className === "panel-toggle") {
-            this.setState({ open: !this.state.open });
+            this.setState({ open: open });
         }
+
+        //whenever we toggle the panel, update the local storage with info about that panel,
+        //specifically, all we really care about is open/close
+        const id = this.props.id;
+        let ui_settings = localStorage.getItem("ui_settings")?JSON.parse(localStorage.getItem("ui_settings")):{panels: []};
+        let all_panels = ui_settings.panels.filter(s => s.panel_id !== id);
+        let panel_settings = {panel_id: id, open: open};
+        all_panels.push(panel_settings);
+        ui_settings.panels = all_panels;
+
+        localStorage.setItem("ui_settings", JSON.stringify(ui_settings));
     }
     render() {
         const open = this.state.open;
         const { progress } = this.props;
         const { id, title, keycards_each, feats, type } = this.props.sector;
+        const progressUpdateCallback = this.props.onProgressUpdate;
 
         //progress obj be like:
         //  keycards: 20,
@@ -40,7 +53,6 @@ class SectorPanel extends Component {
         //  feats: [{id: "4", count: "21", complete: "true", keycards: "5"}, {id: "6", count: "22", complete: "true", keycards: "5"} ],
         let feats_elems = [];
         if (feats !== undefined) {
-            const progressUpdateCallback = this.props.onProgressUpdate;
             feats.forEach(function (feat) {
                 let progress_ele = progress.feats.filter(f => f.id === feat.id)[0];
                 feats_elems.push(<Feat key={feat.id} feat={feat} keycards={keycards_each} progress={progress_ele} onProgressUpdate={progressUpdateCallback} />);
@@ -55,7 +67,7 @@ class SectorPanel extends Component {
                 </div>
                 {open === true ?
                     <div className="panel-content">
-                        {type === "sector" ? <BattleStars progress={progress} sector_id={id} stars_3="3" stars_2="8" stars_1="2" /> : ''}
+                        {type === "sector" ? <BattleStars progress={progress} sector_id={id} stars_3="3" stars_2="8" stars_1="2" onProgressUpdate={progressUpdateCallback}  /> : ''}
                         {feats_elems}
                         {type === "sector" ? <BossFeat progress={progress} sector_id={id} title="Feat Title" id="0" /> : ''}
                     </div>

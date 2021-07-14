@@ -9,7 +9,6 @@
          return (
                  <div className="feat-wrapper">
                      <h2>Boss: {this.props.title}</h2>
-                     <p>{this.props.progress}</p>
                      <span>{this.props.id}</span>
                  </div>
          )

@@ -333,7 +333,14 @@ class ProgressTracker extends Component {
         const { progress, active_chest, prev_chest_max } = this.state;
         const end_date = this.state.conquest_template.end_date;
 
-        const sectors = this.state.conquest_template.sectors.map(s => <SectorPanel key={s.id} sector={s} startOpen={false} progress={progress} onProgressUpdate={this.updateProgress} />);
+        const sectors = [];
+        //check to see if we stored info in the ui_settings for this panel
+        const ui_settings = localStorage.getItem("ui_settings") ? JSON.parse(localStorage.getItem("ui_settings")) : { panels: [] };
+        this.state.conquest_template.sectors.forEach(s => {
+            const panel_settings = ui_settings.panels?ui_settings.panels.filter(p => p.panel_id === s.id)[0]:{panel_id: s.id, open: false}; 
+            const open = panel_settings?panel_settings.open:false;
+            sectors.push(<SectorPanel key={s.id} id={s.id} sector={s} startOpen={open} progress={progress} onProgressUpdate={this.updateProgress} />)
+        });
 
         return (
             <div className="progress-tracker">
