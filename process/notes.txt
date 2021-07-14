@@ -60,12 +60,13 @@ X - move sectors to conquest template
 X - store info about sectors: num battles, scavenger nodes, etc
 X - update favicon
 X - store UI stuff in localstorage (which panels are open/closed)
+X - implement battle stars
 - support for normal AND hard
 - add feat status "maybe" and add the hypothetical keycard count
-- implement battle stars
 - implment boss tracking
 - desktop media query
 - deploy script
+- show sector progress, i.e. X/max_keycards_for_sector
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)

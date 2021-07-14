@@ -144,12 +144,12 @@ class ProgressTracker extends Component {
                 { id: "6", description: "Hard-07", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 44, icon: img_shard_razor_crest },] },
             ],
             sectors: [
-                { id: "0", title: "Event Feats", type: "event", feats: [], keycards_each: "9"},
-                { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13"},
-                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13"},
-                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13"},
-                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13"},
-                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13"},
+                { id: "0", title: "Event Feats", type: "event", feats: [], keycards_each: "9" },
+                { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13" },
+                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13" },
+                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13" },
+                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13" },
+                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13" },
             ]
         };
 
@@ -158,11 +158,15 @@ class ProgressTracker extends Component {
             keycards: 0,
             keycard_offset: 0,
             mode: "hard",
-            feats: [ { id: "0", count: "0", complete: "false", keycards: "0" }],            
+            feats: [{ id: "0", count: "0", complete: "false", keycards: "0" }],
             //battle progress
+            battle_progress: [{ sector_id: "1", stars: {stars_1: 4, stars_2: 2, stars_3: 0} }, { sector_id: "2", stars: {stars_1: 6, stars_2: 9, stars_3: 9} }]
         }
         //get progress from local storage (if possible)
-        const DATA_CONQUEST_PROGRESS = localStorage.getItem('conquest_progress')?JSON.parse(localStorage.getItem('conquest_progress')):DEFAULT_CONQUEST_PROGRESS;
+        const DATA_CONQUEST_PROGRESS = localStorage.getItem('conquest_progress') ? JSON.parse(localStorage.getItem('conquest_progress')) : DEFAULT_CONQUEST_PROGRESS;
+        //const DATA_CONQUEST_PROGRESS = DEFAULT_CONQUEST_PROGRESS;
+        //console.log("LOCAL STORAGE IS DISABLED, using:");
+        //console.log(DATA_CONQUEST_PROGRESS);
 
 
         //push it to the state
@@ -183,17 +187,17 @@ class ProgressTracker extends Component {
         let mode = this.state.progress.mode;
 
         //loop through all the states, and then filter out the related feats
-        for(let i=0; i< template.sectors.length; i++){
+        for (let i = 0; i < template.sectors.length; i++) {
             let sector = template.sectors[i];
-            if(sector.type === "event"){
-                sector.feats = all_feats.filter(feat => feat.type === "event" && feat.active === "true" && feat.mode === mode); 
+            if (sector.type === "event") {
+                sector.feats = all_feats.filter(feat => feat.type === "event" && feat.active === "true" && feat.mode === mode);
             } else {
                 sector.feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === sector.id && feat.mode === mode);
             }
             template.sectors[i] = sector;
         }
         //push it to the state
-        this.setState({conquest_template: template });
+        this.setState({ conquest_template: template });
     }
 
     //determines how many keycards have been earned
@@ -202,6 +206,15 @@ class ProgressTracker extends Component {
         let keycard_count = 0;
         //loop through progress array, if feat has keycards associated and is complete, add it to the total
         progress.feats.forEach(feat => keycard_count += (feat.keycards && feat.complete === "true") ? Number(feat.keycards) : 0);
+
+        //calculate stars from battles
+        let battle_stars = 0;
+        progress.battle_progress.forEach(bs => {
+            battle_stars += (bs.stars.stars_1 * 1);
+            battle_stars += (bs.stars.stars_2 * 2);
+            battle_stars += (bs.stars.stars_3 * 3);
+        });
+        keycard_count += battle_stars;
 
         //also get the manually set offset
         keycard_count += Number(progress.keycard_offset);
@@ -212,7 +225,7 @@ class ProgressTracker extends Component {
         const chests = this.state.conquest_template.chests;
         let active_chest = false;
         let prev_chest_max = 0; //track the last chest, so we can come up with more meaningful chest %
-        let prev_chest = {keycards_needed: 0}; //in ChestProgress, we'll do keycards/keycards_needed, and we want it to be for the current chest
+        let prev_chest = { keycards_needed: 0 }; //in ChestProgress, we'll do keycards/keycards_needed, and we want it to be for the current chest
 
         //loop through the chests in order and snag the highest, valid chest
         chests.forEach(chest => {
@@ -229,7 +242,7 @@ class ProgressTracker extends Component {
         }
 
         //push it to the state
-        this.updateStateAndLocalStorage({ progress: progress, active_chest: active_chest, prev_chest_max: prev_chest_max });        
+        this.updateStateAndLocalStorage({ progress: progress, active_chest: active_chest, prev_chest_max: prev_chest_max });
     }
 
     //runs after first render(), but that's fine
@@ -262,7 +275,7 @@ class ProgressTracker extends Component {
         let progress = this.state.progress;
         progress.keycard_offset = val;
         //this.setState({ progress: progress });
-        this.updateStateAndLocalStorage({ progress: progress });        
+        this.updateStateAndLocalStorage({ progress: progress });
         this.calculateKeycards();
     }
 
@@ -272,13 +285,13 @@ class ProgressTracker extends Component {
         let progress = this.state.progress;
         progress.notes = val;
         //this.setState({ progress: progress });
-        this.updateStateAndLocalStorage({ progress: progress });        
+        this.updateStateAndLocalStorage({ progress: progress });
         this.calculateKeycards();
     }
 
     //update the state/progress for the given id/val obj
     // progress_update contains: {id: "0", count: "1", keycards: "5", complete: "true/false"}
-    updateProgress = (progress_update) => {
+    updateFeatProgress = (progress_update) => {
         let id = progress_update.id ? progress_update.id : false;
         let count = progress_update.count ? progress_update.count : "0";
         let keycards = progress_update.keycards ? progress_update.keycards : "0";
@@ -321,8 +334,19 @@ class ProgressTracker extends Component {
         this.calculateKeycards();
     }
 
+    //{ sector_id: "1", stars: {stars_1: "0", stars_2: "0", stars_3: "0"}};
+    updateBattleProgress = (progress_update) => {
+        let progress = this.state.progress;
+        let bps = progress.battle_progress.filter(bp => bp.sector_id !== progress_update.sector_id);
+        bps.push(progress_update);
+        progress.battle_progress = bps;
+
+        this.updateStateAndLocalStorage({ progress: progress });
+        this.calculateKeycards();
+    }
+
     //wrapper for setState, will write certain items (i.e. progress) to browser local storage
-    updateStateAndLocalStorage(state){
+    updateStateAndLocalStorage(state) {
         //update everything given in the state
         this.setState(state);
         //push the stuff we care about to local storage, likely just progress
@@ -337,9 +361,9 @@ class ProgressTracker extends Component {
         //check to see if we stored info in the ui_settings for this panel
         const ui_settings = localStorage.getItem("ui_settings") ? JSON.parse(localStorage.getItem("ui_settings")) : { panels: [] };
         this.state.conquest_template.sectors.forEach(s => {
-            const panel_settings = ui_settings.panels?ui_settings.panels.filter(p => p.panel_id === s.id)[0]:{panel_id: s.id, open: false}; 
-            const open = panel_settings?panel_settings.open:false;
-            sectors.push(<SectorPanel key={s.id} id={s.id} sector={s} startOpen={open} progress={progress} onProgressUpdate={this.updateProgress} />)
+            const panel_settings = ui_settings.panels ? ui_settings.panels.filter(p => p.panel_id === s.id)[0] : { panel_id: s.id, open: false };
+            const open = panel_settings ? panel_settings.open : false;
+            sectors.push(<SectorPanel key={s.id} id={s.id} sector={s} startOpen={open} progress={progress} onProgressUpdate={this.updateFeatProgress} onBattleUpdate={this.updateBattleProgress} />)
         });
 
         return (
