@@ -58,6 +58,7 @@ X - implement notes field
 X - add progress bar to current chest/crate
 X - move sectors to conquest template
 X - store info about sectors: num battles, scavenger nodes, etc
+X - update favicon
 - support for normal AND hard
 - add feat status "maybe" and add the hypothetical keycard count
 - implement battle stars
