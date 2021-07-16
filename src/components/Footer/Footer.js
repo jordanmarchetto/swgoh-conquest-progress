@@ -9,8 +9,9 @@
  class Footer extends Component {
     showHidden = () => {
         console.log("showing hidden elements");
-        let hidden_stuff = document.getElementsByClassName("hidden");
-        for(let ele of hidden_stuff){
+        let hidden_stuff = document.querySelectorAll(".hidden");
+        for(let i=0; i<hidden_stuff.length; i++){
+            let ele = hidden_stuff[i];
             ele.classList.remove("hidden");
         }
     }

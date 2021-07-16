@@ -16,7 +16,7 @@ class BattleStars extends Component {
     static getDerivedStateFromProps(props, state) {
         const { progress, sector_id } = props;
         const battle_progress = progress.battle_progress.filter(bp => bp.sector_id === sector_id)[0];
-        const { stars_1, stars_2, stars_3 } = battle_progress.stars ? battle_progress.stars : { stars_1: 0, stars_2: 0, stars_3: 0 };
+        const { stars_1, stars_2, stars_3 } = battle_progress ? battle_progress.stars : { stars_1: 0, stars_2: 0, stars_3: 0 };
         return { sector_id: sector_id, stars: { stars_1: stars_1, stars_2: stars_2, stars_3: stars_3 } };
     }
 

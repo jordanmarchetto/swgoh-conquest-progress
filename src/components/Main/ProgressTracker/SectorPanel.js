@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import BattleStars from "./BattleStars";
 import Feat from "./Feat";
-import BossFeat from "./BossFeat";
+import SectorBoss from "./SectorBoss";
 
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 class SectorPanel extends Component {
@@ -33,20 +33,23 @@ class SectorPanel extends Component {
         //whenever we toggle the panel, update the local storage with info about that panel,
         //specifically, all we really care about is open/close
         const id = this.props.id;
-        let ui_settings = localStorage.getItem("ui_settings")?JSON.parse(localStorage.getItem("ui_settings")):{panels: []};
+        let ui_settings = localStorage.getItem("ui_settings") ? JSON.parse(localStorage.getItem("ui_settings")) : { panels: [] };
         let all_panels = ui_settings.panels.filter(s => s.panel_id !== id);
-        let panel_settings = {panel_id: id, open: open};
+        let panel_settings = { panel_id: id, open: open };
         all_panels.push(panel_settings);
         ui_settings.panels = all_panels;
 
         localStorage.setItem("ui_settings", JSON.stringify(ui_settings));
     }
+
     render() {
         const open = this.state.open;
         const { progress } = this.props;
-        const { id, title, keycards_each, feats, type, num_battles } = this.props.sector;
+        const { id, title, keycards_each, feats, type, num_battles, boss_feat_keycards, boss_team } = this.props.sector;
         const progressUpdateCallback = this.props.onProgressUpdate;
         const battleProgressUpdateCallback = this.props.onBattleUpdate;
+        const bossProgressUpdateCallback = this.props.onBossUpdate;
+        const boss_feats = feats.filter(f => f.type === "boss");
 
         //progress obj be like:
         //  keycards: 20,
@@ -55,6 +58,9 @@ class SectorPanel extends Component {
         let feats_elems = [];
         if (feats !== undefined) {
             feats.forEach(function (feat) {
+                if (feat.type !== "sector" && feat.type !== "event") {
+                    return;
+                }
                 let progress_ele = progress.feats.filter(f => f.id === feat.id)[0];
                 feats_elems.push(<Feat key={feat.id} feat={feat} keycards={keycards_each} progress={progress_ele} onProgressUpdate={progressUpdateCallback} />);
             });
@@ -68,9 +74,10 @@ class SectorPanel extends Component {
                 </div>
                 {open === true ?
                     <div className="panel-content">
-                        {type === "sector" ? <BattleStars progress={progress} sector_id={id} onBattleProgressUpdate={battleProgressUpdateCallback} num_battles={num_battles}  /> : ''}
+                        <div className="hidden"> {JSON.stringify(this.props)} </div>
+                        {type === "sector" ? <BattleStars progress={progress} sector_id={id} onBattleProgressUpdate={battleProgressUpdateCallback} num_battles={num_battles} /> : ''}
                         {feats_elems}
-                        {type === "sector" ? <BossFeat progress={progress} sector_id={id} title="Feat Title" id="0" /> : ''}
+                        {type === "sector" ? <SectorBoss progress={progress} sector_id={id} boss_team={boss_team} boss_keycards={boss_feat_keycards} boss_feats={boss_feats} onBossProgressUpdate={bossProgressUpdateCallback} /> : ''}
                     </div>
                     : ''}
             </div>

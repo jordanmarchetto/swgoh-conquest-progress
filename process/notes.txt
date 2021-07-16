@@ -67,6 +67,7 @@ X - implement battle stars
 - desktop media query
 - deploy script
 - show sector progress, i.e. X/max_keycards_for_sector
+- add tooltips/help text, esp for "keycard offset"
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)

@@ -145,11 +145,11 @@ class ProgressTracker extends Component {
             ],
             sectors: [
                 { id: "0", title: "Event Feats", type: "event", feats: [], keycards_each: "9" },
-                { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13" },
-                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13" },
-                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13" },
-                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13" },
-                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13" },
+                { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "Padme" } },
+                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "GAS" } },
+                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "4", boss_team: { description: "SEE" } },
+                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "5", boss_team: { description: "GLRey" } },
+                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13", boss_feat_keycards: "6", boss_team: { description: "SLKR" } },
             ]
         };
 
@@ -160,14 +160,14 @@ class ProgressTracker extends Component {
             mode: "hard",
             feats: [{ id: "0", count: "0", complete: "false", keycards: "0" }],
             //battle progress
-            battle_progress: [{ sector_id: "1", stars: {stars_1: 4, stars_2: 2, stars_3: 0} }, { sector_id: "2", stars: {stars_1: 6, stars_2: 9, stars_3: 9} }]
+            battle_progress: [{ sector_id: "0", stars: { stars_1: 0, stars_2: 0, stars_3: 0 } }],
+            boss_progress: [{ sector_id: "0", stars: 0, feats: [{ id: "0", complete: "false", keycards: "0" }] }]
         }
         //get progress from local storage (if possible)
         const DATA_CONQUEST_PROGRESS = localStorage.getItem('conquest_progress') ? JSON.parse(localStorage.getItem('conquest_progress')) : DEFAULT_CONQUEST_PROGRESS;
         //const DATA_CONQUEST_PROGRESS = DEFAULT_CONQUEST_PROGRESS;
         //console.log("LOCAL STORAGE IS DISABLED, using:");
         //console.log(DATA_CONQUEST_PROGRESS);
-
 
         //push it to the state
         this.state = {
@@ -192,7 +192,7 @@ class ProgressTracker extends Component {
             if (sector.type === "event") {
                 sector.feats = all_feats.filter(feat => feat.type === "event" && feat.active === "true" && feat.mode === mode);
             } else {
-                sector.feats = all_feats.filter(feat => feat.type === "sector" && feat.sector === sector.id && feat.mode === mode);
+                sector.feats = all_feats.filter(feat => (feat.type === "sector" || feat.type === "boss") && feat.sector === sector.id && feat.mode === mode);
             }
             template.sectors[i] = sector;
         }
@@ -215,6 +215,14 @@ class ProgressTracker extends Component {
             battle_stars += (bs.stars.stars_3 * 3);
         });
         keycard_count += battle_stars;
+
+        //calculate stars from boss stuff
+        let boss_stars = 0;
+        progress.boss_progress.forEach(s => {
+            boss_stars += s.stars;
+            s.feats.forEach(f => boss_stars += f.complete === "true" ? Number(f.keycards) : 0);
+        });
+        keycard_count += boss_stars;
 
         //also get the manually set offset
         keycard_count += Number(progress.keycard_offset);
@@ -334,6 +342,42 @@ class ProgressTracker extends Component {
         this.calculateKeycards();
     }
 
+    updateBossProgress = (progress_update) => {
+        console.log("boss progress update:")
+        console.log(progress_update);
+        let progress = this.state.progress;
+        let sector_id = progress_update.sector_id ? progress_update.sector_id : false;
+        //get the whole sector progress obj from the boss_progress array
+        let sector_progress = progress.boss_progress.filter(s => s.sector_id === sector_id);
+        //if we didn't find it, make a blank one
+        sector_progress = sector_progress.length > 0 ? sector_progress[0] : { sector_id: sector_id, stars: 0, feats: [] };
+
+        //update the sectore, based on what type of update we're running
+        if (progress_update.type === "boss_feat") {
+            let id = progress_update.id ? progress_update.id : false;
+            let boss_keycards = progress_update.boss_keycards ? progress_update.boss_keycards : "0";
+            let complete = progress_update.complete ? progress_update.complete : "false";
+
+            //get all the list of feats from there that aren't the one we're updating
+            let sector_feat_progress = sector_progress.feats.filter(f => f.id !== id);
+            //add our updated feat to the list
+            sector_feat_progress.push({ id: id, complete: complete, keycards: boss_keycards });
+            //store it to the sector progress obj
+            sector_progress.feats = sector_feat_progress;
+        } else if (progress_update.type === "boss_stars") {
+            let stars = progress_update.stars;
+            sector_progress.stars = stars;
+        }
+
+        //put the updated sector obj back in the list
+        //same idea, get all the sector progress objs from the boss_progress array that AREN'T this one, then append this one
+        progress.boss_progress = progress.boss_progress.filter(s => s.sector_id !== sector_id);
+        progress.boss_progress.push(sector_progress);
+
+        this.updateStateAndLocalStorage({ progress: progress });
+        this.calculateKeycards();
+    }
+
     //{ sector_id: "1", stars: {stars_1: "0", stars_2: "0", stars_3: "0"}};
     updateBattleProgress = (progress_update) => {
         let progress = this.state.progress;
@@ -363,7 +407,7 @@ class ProgressTracker extends Component {
         this.state.conquest_template.sectors.forEach(s => {
             const panel_settings = ui_settings.panels ? ui_settings.panels.filter(p => p.panel_id === s.id)[0] : { panel_id: s.id, open: false };
             const open = panel_settings ? panel_settings.open : false;
-            sectors.push(<SectorPanel key={s.id} id={s.id} sector={s} startOpen={open} progress={progress} onProgressUpdate={this.updateFeatProgress} onBattleUpdate={this.updateBattleProgress} />)
+            sectors.push(<SectorPanel key={s.id} id={s.id} sector={s} startOpen={open} progress={progress} onProgressUpdate={this.updateFeatProgress} onBattleUpdate={this.updateBattleProgress} onBossUpdate={this.updateBossProgress} />)
         });
 
         return (
