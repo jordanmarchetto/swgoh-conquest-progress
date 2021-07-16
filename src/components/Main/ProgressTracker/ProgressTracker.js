@@ -343,8 +343,6 @@ class ProgressTracker extends Component {
     }
 
     updateBossProgress = (progress_update) => {
-        console.log("boss progress update:")
-        console.log(progress_update);
         let progress = this.state.progress;
         let sector_id = progress_update.sector_id ? progress_update.sector_id : false;
         //get the whole sector progress obj from the boss_progress array
