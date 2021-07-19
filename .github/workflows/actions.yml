@@ -22,6 +22,7 @@ jobs:
         node-version: 16
     - run: npm ci
     - run: npm run build
+    - run: ls -al
     - name: Upload file via SSH
       uses: nicklasfrahm/scp-action@main
       with:
@@ -29,7 +30,7 @@ jobs:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
-          fingerprint: ${{ secrets.FINGERPRINT }}
+          fingerprint: ${{ secrets.SSH_FINGERPRINT }}
           key: ${{ secrets.KEY }}
           source: |
             build/*
