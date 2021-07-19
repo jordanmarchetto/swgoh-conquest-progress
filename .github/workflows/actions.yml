@@ -29,7 +29,7 @@ jobs:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
-          fingerpring: ${{ secrets.FINGERPRINT }}
+          fingerprint: ${{ secrets.FINGERPRINT }}
           key: ${{ secrets.KEY }}
           source: |
             build/*
