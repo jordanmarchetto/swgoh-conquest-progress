@@ -32,6 +32,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           fingerprint: ${{ secrets.SSH_FINGERPRINT }}
           key: ${{ secrets.KEY }}
-          source: |
-            build/*
+          source: ./build/*
           target: ${{ secrets.SSH_PATH}}
