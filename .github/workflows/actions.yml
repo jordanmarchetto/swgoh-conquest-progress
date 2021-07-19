@@ -23,4 +23,4 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: ls -al
-    - run: ${{ SCP_COMMAND }}
+    - run: ${{ secrets.SCP_COMMAND }}
