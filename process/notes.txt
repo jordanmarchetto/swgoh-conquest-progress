@@ -61,13 +61,14 @@ X - store info about sectors: num battles, scavenger nodes, etc
 X - update favicon
 X - store UI stuff in localstorage (which panels are open/closed)
 X - implement battle stars
+X - implment boss tracking
 - support for normal AND hard
-- add feat status "maybe" and add the hypothetical keycard count
-- implment boss tracking
-- desktop media query
+- desktop media query/styles
 - deploy script
 - show sector progress, i.e. X/max_keycards_for_sector
 - add tooltips/help text, esp for "keycard offset"
+- allow numbers to have text field inputs
+- add boss icons
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)
@@ -78,5 +79,6 @@ X - store progress in browser
 - move template to DB, pull via api
 - calculate CAT/RC unlock progress
 beyond progress:
+- add feat status "maybe" and add the hypothetical keycard count
 - manage datadisks
 - manage/suggest boosters
