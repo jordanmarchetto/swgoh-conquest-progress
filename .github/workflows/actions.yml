@@ -23,4 +23,15 @@ jobs:
     - run: npm ci
     - run: npm run build
     - run: ls -al
-    - run: ${{ secrets.SCP_COMMAND }}
+    - run: tar -czvf build.tar.gz /build
+    - name: Upload file via SSH
+      uses: nicklasfrahm/scp-action@main
+      with:
+          direction: upload
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          fingerprint: ${{ secrets.SSH_FINGERPRINT }}
+          key: ${{ secrets.KEY }}
+          source: build.tar.gz
+          target: ${{ secrets.SSH_PATH}}
