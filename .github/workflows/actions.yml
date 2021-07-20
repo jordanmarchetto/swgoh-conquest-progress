@@ -38,6 +38,5 @@ jobs:
           REMOTE_PORT: ${{ secrets.PORT }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.SSH_PATH }}
-    - name: site deployed  
     - run: echo https://www.jmar.dev/swgoh-conquest/
 
