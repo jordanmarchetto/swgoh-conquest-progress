@@ -22,10 +22,10 @@ jobs:
       uses: actions/setup-node@v2
       with: 
         node-version: 16
-    - run: echo ${{ secrets.ENV }} > .env
-    - run: echo ${{ secrets.ENV_PROD }} > .env.production
-    - run: ls -al
     - run: npm ci
+    - run: echo ${{ secrets.ENV }} > .env
+    - run: echo ${{ secrets.ENV_PROD }} >> .env
+    - run: ls -al
     - run: npm run build
     - name: push build to remote server
       uses: easingthemes/ssh-deploy@main
