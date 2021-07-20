@@ -22,10 +22,11 @@ jobs:
       uses: actions/setup-node@v2
       with: 
         node-version: 16
-    - run: npm ci
     - run: echo ${{ secrets.ENV }} > .env
     - run: echo ${{ secrets.ENV_PROD }} >> .env
     - run: ls -al
+    - run: cat .env
+    - run: npm ci
     - run: npm run build
     - name: push build to remote server
       uses: easingthemes/ssh-deploy@main
@@ -37,4 +38,5 @@ jobs:
           REMOTE_PORT: ${{ secrets.PORT }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.SSH_PATH }}
+    - name: site deployed - https://www.jmar.dev/swgoh-conquest/
 
