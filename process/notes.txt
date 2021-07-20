@@ -62,9 +62,9 @@ X - update favicon
 X - store UI stuff in localstorage (which panels are open/closed)
 X - implement battle stars
 X - implment boss tracking
+X - deploy script
 - support for normal AND hard
 - desktop media query/styles
-- deploy script
 - show sector progress, i.e. X/max_keycards_for_sector
 - add tooltips/help text, esp for "keycard offset"
 - allow numbers to have text field inputs
