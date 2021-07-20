@@ -1,5 +1,5 @@
 name: scp files on release
-on: [push, release]
+on: [release]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -8,7 +8,12 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: 16
-      - run: echo ${{ secrets.ENV }} > .env
+      - name: make envfile
+        uses: SpicyPizza/create-envfile@v1
+        with:
+          envkey_PUBLIC_URL: ${{ secrets.ENV_PUBLIC_URL }}
+          envkey_REACT_APP_TITLE: ${{ secrets.ENV_REACT_APP_TITLE }}
+          envkey_REACT_APP_REGION: ${{ secrets.ENV_REACT_APP_REGION }}      
       - run: npm ci
       - run: npm run build
   deploy:
@@ -26,7 +31,7 @@ jobs:
       with:
         envkey_PUBLIC_URL: ${{ secrets.ENV_PUBLIC_URL }}
         envkey_REACT_APP_TITLE: ${{ secrets.ENV_REACT_APP_TITLE }}
-        envkey_REACT_APP_REGION: ${{ secrets.REACT_APP_REGION }}
+        envkey_REACT_APP_REGION: ${{ secrets.ENV_REACT_APP_REGION }}
     - run: ls -al
     - run: npm ci
     - run: npm run build
