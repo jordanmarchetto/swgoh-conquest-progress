@@ -22,8 +22,7 @@ jobs:
         node-version: 16
     - run: npm ci
     - run: npm run build
-    - run: ls -al
-    - name: Deploy to Server
+    - name: push build to remote server
       uses: easingthemes/ssh-deploy@main
       env:
           SSH_PRIVATE_KEY: ${{ secrets.KEY }}
