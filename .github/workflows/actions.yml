@@ -9,7 +9,6 @@ jobs:
         with:
           node-version: 16
       - run: echo ${{ secrets.ENV }} > .env
-      - run: echo ${{ secrets.ENV_PROD }} > .env.production
       - run: npm ci
       - run: npm run build
   deploy:
@@ -23,9 +22,7 @@ jobs:
       with: 
         node-version: 16
     - run: echo ${{ secrets.ENV }} > .env
-    - run: echo ${{ secrets.ENV_PROD }} >> .env
     - run: ls -al
-    - run: cat .env
     - run: npm ci
     - run: npm run build
     - name: push build to remote server
@@ -38,5 +35,4 @@ jobs:
           REMOTE_PORT: ${{ secrets.PORT }}
           REMOTE_USER: ${{ secrets.USERNAME }}
           TARGET: ${{ secrets.SSH_PATH }}
-    - run: echo https://www.jmar.dev/swgoh-conquest/
 
