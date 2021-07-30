@@ -67,7 +67,8 @@ class SectorPanel extends Component {
         }
 
         return (
-            <div className="sector-panel">
+             
+            <div className={open === true ? "sector-panel panel-open": "sector-panel panel-closed"} id={"sector-panel-" + this.props.id}>
                 <div className="panel-heading" onClick={this.togglePanel}>
                     <h1 className="panel-toggle">{title}</h1>
                     {open === true ? <ExpandLess fontSize="large" className="panel-toggle" /> : <ExpandMore fontSize="large" className="panel-toggle" />}

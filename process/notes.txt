@@ -44,6 +44,7 @@ $("#feats tr").each(function(){
 console.log(output);
 
 
+//https://github.com/jordanmarchetto/swgoh-conquest-progress/actions
 
 TODO:
 visuals/utility:

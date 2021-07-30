@@ -6,7 +6,6 @@
 //components
 import React, { Component } from 'react';
 import ChestProgress from './ChestProgress';
-import TimeLeft from './TimeLeft';
 import SectorPanel from './SectorPanel';
 import { TextField } from '@material-ui/core';
 //css:
@@ -414,38 +413,41 @@ class ProgressTracker extends Component {
                     progress: {JSON.stringify(progress)}
                     <br />
                 </div>
-                <TimeLeft end_date={end_date} />
-                <ChestProgress keycards={progress.keycards} active_chest={active_chest} prev_chest_max={prev_chest_max} />
+                <ChestProgress keycards={progress.keycards} active_chest={active_chest} prev_chest_max={prev_chest_max} end_date={end_date}/>
                 {sectors}
-                <TextField
-                    id="keycard_offset"
-                    label="Keycard Offset"
-                    type="number"
-                    name="keycard_offset"
-                    value={progress.keycard_offset}
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    variant="outlined"
-                    onChange={this.updateKeycardOffset}
-                />
-                <br />
-                <br />
-                <TextField
-                    id="progress_notes"
-                    label="Notes"
-                    multiline
-                    rows={4}
-                    type="number"
-                    placeholder="Notes"
-                    value={progress.notes}
-                    onChange={this.updateProgressNotes}
-                    name="progress_notes"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    variant="outlined"
-                />
+                <div className="extra-fields">
+                    <h3>Additional Information</h3>
+                    <TextField
+                        id="keycard_offset"
+                        label="Keycard Offset"
+                        type="number"
+                        name="keycard_offset"
+                        helperText="Add a manual adjustment to your keycard total."
+                        value={progress.keycard_offset}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        variant="outlined"
+                        onChange={this.updateKeycardOffset}
+                    />
+                    <br />
+                    <br />
+                    <TextField
+                        id="progress_notes"
+                        label="Notes"
+                        multiline
+                        rows={4}
+                        type="number"
+                        placeholder="Notes"
+                        value={progress.notes}
+                        onChange={this.updateProgressNotes}
+                        name="progress_notes"
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                        variant="outlined"
+                    />
+                </div>
             </div>
         )
     }

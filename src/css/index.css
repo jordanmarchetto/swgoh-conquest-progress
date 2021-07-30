@@ -3,85 +3,49 @@ Global styles, primarily big stuff like fonts and colors
 
 https://material.io/resources/color/#!/?view.left=0&view.right=0&primary.color=311B92&secondary.color=42A5F5
 */
+
 :root {
-  --primary-color: #311b92;
-  --primary-color-text: white;
-  --primary-light: #6746c3;
-  --primary-dark: #000063;
-  --secondary-color: #42a5f5;
-  --secondary-color-text: #222;
-  --secondary-light: #80d6ff;
-  --secondary-dark: #0077c2;
-  --complete: #66bb6a;
-  --default-text: #222;
-  --default-bg: #f5f5f5;
-  --font-stack: Roboto, "Open Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    --primary-color: #311b92;
+    --primary-color-text: white;
+    --primary-light: #6746c3;
+    --primary-dark: #000063;
+    --secondary-color: #42a5f5;
+    --secondary-color-text: #222;
+    --secondary-light: #80d6ff;
+    --secondary-dark: #0077c2;
+    --complete: #66bb6a;
+    --default-text: #222;
+    --default-bg: rgb(221, 221, 221);
+    --default-bg-gradient: linear-gradient(0deg, rgba(221, 221, 221, 1) 0%, rgba(238, 238, 238, 1) 100%);
+    /*--default-shadow: 0 22px 70px 4px rgba(0,0,0,0.56), 0 0 0 1px rgba(0, 0, 0, 0.3);*/
+    --default-shadow: 0 8px 6px -6px rgba(0, 0, 0, 0.56);
+    --font-stack: Roboto, "Open Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 }
 
-
 @import url('https://fonts.googleapis.com/css?family=Roboto');
-body, html {
-  margin: 0;
-  padding: 0;
-  color: var(--default-text);
-  font-family: var(--font-stack);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: var(--default-bg);
-  /*
-  background: linear-gradient(45deg, rgba(235, 235, 235, 1) 0%, rgba(250, 250, 250, 1) 100%);
-  background-attachment: fixed;
-  height: 100%;
-  */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    color: var(--default-text);
+    font-family: var(--font-stack);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: rgb(35, 39, 48);
+    background: url('./images/stars.png') center center repeat, linear-gradient(180deg, rgba(35, 39, 48, 1) 0%, rgba(13, 19, 32, 1) 100%);
+    background-size: 500px;
+    background-blend-mode: soft-light;
 }
 
 .hidden {
-  display: none !important;
+    display: none !important;
 }
 
-/** BUTTON STYLES **/
-/*
-button {
-  font-family: var(--font-stack);
-  font-size: 1em;
-  cursor: pointer;
+.break {
+    clear: both;
 }
-
-.btn {
-  background: var(--secondary-color);
-  color: var(--secondary-color-text);
-  text-decoration: none;
-  border: 2px solid var(--secondary-dark);
-  box-shadow: 0px 2px 3px 1px #ddd;
-  padding: 8px;
-  margin: 10px;
-}
-
-.btn:hover, .btn:active, .btn:focus {
-  color: var(--secondary-color-text);
-  background: var(--secondary-dark);
-  box-shadow: 0px 2px 5px 2px #ddd;
-}
-
-.btn:disabled{
-  background: #ddd;
-  border-color: #999;
-  color: #999;
-}
-
-.btn-secondary {
-  background: white;
-  color: var(--default-text);
-  border: none;
-}
-
-.btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
-  background: #f2f2f2;
-  color: var(--default-text);
-}
-*/
-/** END BUTTON STYLES **/
 
 .inline-icon {
-  vertical-align: text-bottom;
+    vertical-align: text-bottom;
 }

@@ -15,8 +15,10 @@ const TimeLeft = ({ end_date }) => {
 
     return (
         <div className="time-left">
-            <h3>Time Left</h3>
-            {days_left} days {hours_left} hours left in conquest. (ends on {end_date})
+            <p>
+                <strong>Time Left: </strong>
+                <span>{days_left} days {hours_left} hours. <em>(ends on {new Date(end_date).toLocaleDateString()} at {new Date(end_date).toLocaleTimeString()} EST)</em></span>
+            </p>
         </div>
 
     );
