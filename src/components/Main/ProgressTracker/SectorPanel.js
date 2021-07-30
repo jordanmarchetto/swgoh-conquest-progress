@@ -6,8 +6,8 @@ import React, { Component } from 'react';
 import BattleStars from "./BattleStars";
 import Feat from "./Feat";
 import SectorBoss from "./SectorBoss";
-
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
+
 class SectorPanel extends Component {
 
     constructor(props) {

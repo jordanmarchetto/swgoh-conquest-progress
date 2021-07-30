@@ -1,5 +1,5 @@
 name: scp files on release
-on: [release]
+on: [release, push]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,7 +39,7 @@ jobs:
       uses: easingthemes/ssh-deploy@main
       env:
           SSH_PRIVATE_KEY: ${{ secrets.KEY }}
-          ARGS: "-avzr --delete"
+          ARGS: "-rltgoDzvO"
           SOURCE: "build/"
           REMOTE_HOST: ${{ secrets.HOST }}
           REMOTE_PORT: ${{ secrets.PORT }}

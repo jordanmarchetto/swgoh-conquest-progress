@@ -6,12 +6,14 @@ import React, { Component } from 'react';
 import { IconButton } from '@material-ui/core';
 import { Add, Remove, Block } from '@material-ui/icons';
 import icon_star from '../../../images/icon_star.png';
+
 class BattleStars extends Component {
 
     constructor(props) {
         super(props);
         this.state = { sector_id: false, stars: { stars_1: 0, stars_2: 0, stars_3: 0 } };
     }
+
     //get the data from props and store it in the state
     static getDerivedStateFromProps(props, state) {
         const { progress, sector_id } = props;
@@ -44,6 +46,7 @@ class BattleStars extends Component {
             return false;
         }
     }
+
     render() {
         const { stars_1, stars_2, stars_3 } = this.state.stars;
         return (

@@ -5,18 +5,33 @@
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import ProgressTracker from './ProgressTracker/ProgressTracker';
-import React from 'react';
+import React, { Component } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <Header />
-      <main>
-        <ProgressTracker />
-      </main>
-      <Footer />
-    </div>
-  );
+class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      menuOpen: false,
+    }
+  }
+
+  //handler for the <Menu> component inside of <Header>
+  handleMenuToggle(state) {
+    this.setState({ menuOpen: state.isOpen })
+  }
+
+  render() {
+    return (
+      <div className="App" >
+        <Header menuOpen={this.state.menuOpen} title={process.env.REACT_APP_TITLE} handleMenuToggle={(state) => this.handleMenuToggle(state)} />
+        <main>
+          <ProgressTracker />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 }
 
 export default App;

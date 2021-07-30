@@ -82,3 +82,5 @@ beyond progress:
 - add feat status "maybe" and add the hypothetical keycard count
 - manage datadisks
 - manage/suggest boosters
+x - switch to functional components
+- add analytics

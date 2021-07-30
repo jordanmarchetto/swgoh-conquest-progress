@@ -2,27 +2,25 @@
  * Team.js
  * team component, displays a squad of 5
  */
-import React, { Component } from 'react';
+import React from 'react';
 
-class Team extends Component {
-    render() {
-        const team = this.props.suggested_team;
+const Team = ({ suggested_team }) => {
 
-        return (
-            <div className="team-wrapper">
-                <table>
-                    <tbody>
+    return (
+        <div className="team-wrapper">
+            <table>
+                <tbody>
                     <tr>
-                        <td>{team[0]}</td>
-                        <td>{team[1]}</td>
-                        <td>{team[2]}</td>
-                        <td>{team[3]}</td>
-                        <td>{team[4]}</td>
+                        <td>{suggested_team[0]}</td>
+                        <td>{suggested_team[1]}</td>
+                        <td>{suggested_team[2]}</td>
+                        <td>{suggested_team[3]}</td>
+                        <td>{suggested_team[4]}</td>
                     </tr>
-                    </tbody>
-                </table>
-            </div>
-        )
-    }
+                </tbody>
+            </table>
+        </div>
+    );
 }
+
 export default Team;
