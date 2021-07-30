@@ -8,9 +8,6 @@
 .progress-tracker {
     width: 90%;
     margin: 0 auto;
-    display: grid;
-    grid-gap: 10px;
-    grid-auto-columns: 50%;
 }
 
 .extra-fields {
@@ -35,7 +32,12 @@
 
 /** GRID LAYOUT **/
 
-
+@media (min-width:600px) {
+    .progress-tracker {
+        display: grid;
+        grid-gap: 10px;
+        grid-auto-columns: 50%;
+    }
 /* row 1 */
 
 .time-left {
@@ -100,7 +102,7 @@
 
 
 /** END GRID LAYOUT **/
-
+}
 
 /** SECTORS **/
 
