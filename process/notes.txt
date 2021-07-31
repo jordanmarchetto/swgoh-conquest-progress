@@ -45,6 +45,7 @@ console.log(output);
 
 
 //https://github.com/jordanmarchetto/swgoh-conquest-progress/actions
+//https://www.jmar.dev/swgoh-conquest/
 
 TODO:
 visuals/utility:
@@ -64,11 +65,11 @@ X - store UI stuff in localstorage (which panels are open/closed)
 X - implement battle stars
 X - implment boss tracking
 X - deploy script
+X - desktop media query/styles
+X - allow numbers to have text field inputs
 - support for normal AND hard
-- desktop media query/styles
 - show sector progress, i.e. X/max_keycards_for_sector
 - add tooltips/help text, esp for "keycard offset"
-- allow numbers to have text field inputs
 - add boss icons
 team features:
 - pull teams' images from swgoh.gg
