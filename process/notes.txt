@@ -68,8 +68,10 @@ X - deploy script
 X - desktop media query/styles
 X - allow numbers to have text field inputs
 X - add boss icons
+X - show sector progress, i.e. X/max_keycards_for_sector
+X - show boss keycard progress, i.e. X/total boss keycards (for feats + stars)
 - support for normal AND hard
-- show sector progress, i.e. X/max_keycards_for_sector
+- add ability to set boss battle progress to 0 stars
 - add tooltips/help text, 
 	X - esp for "keycard offset"
 team features:
@@ -87,3 +89,4 @@ beyond progress:
 - manage/suggest boosters
 x - switch to functional components
 - add analytics
+- add tests for empty progress
