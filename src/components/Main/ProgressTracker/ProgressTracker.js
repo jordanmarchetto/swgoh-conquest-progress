@@ -18,6 +18,13 @@ import img_crate_04 from '../../../images/crate_04.png';
 import img_crate_05 from '../../../images/crate_05.png';
 import img_crate_06 from '../../../images/crate_06.png';
 import img_crate_07 from '../../../images/crate_07.png';
+//boss images:
+import icon_character_padme from '../../../images/character_portrait_Padme.png'; //padme
+import icon_character_gas from '../../../images/character_portrait_General_Skywalker.png'; //gas
+import icon_character_see from '../../../images/character_portrait_Sith_Eternal_Emperor.png'; //see
+import icon_character_rey from '../../../images/character_portrait_Rey.png'; //glrey
+import icon_character_slkr from '../../../images/character_portrait_Supreme_Leader_Kylo_Ren.png'; //slkr
+//reward images:
 import img_shard_commander_ahsoka_tano from '../../../images/shard_commander_ahsoka_tano.png';
 import img_shard_razor_crest from '../../../images/shard_razor_crest.png';
 
@@ -144,11 +151,11 @@ class ProgressTracker extends Component {
             ],
             sectors: [
                 { id: "0", title: "Event Feats", type: "event", feats: [], keycards_each: "9" },
-                { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "Padme" } },
-                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "GAS" } },
-                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "4", boss_team: { description: "SEE" } },
-                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "5", boss_team: { description: "GLRey" } },
-                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13", boss_feat_keycards: "6", boss_team: { description: "SLKR" } },
+                { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "Padme", icon: icon_character_padme } },
+                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "GAS", icon: icon_character_gas  } },
+                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "4", boss_team: { description: "SEE", icon: icon_character_see  } },
+                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "5", boss_team: { description: "GLRey", icon: icon_character_rey  } },
+                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13", boss_feat_keycards: "6", boss_team: { description: "SLKR", icon: icon_character_slkr  } },
             ]
         };
 

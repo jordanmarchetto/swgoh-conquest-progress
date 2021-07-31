@@ -313,6 +313,9 @@
 .sector-boss-wrapper {
     padding: 10px;
 }
+.sector-boss-wrapper .boss-icon{
+    max-width: 66px;
+}
 
 .sector-boss-wrapper .star-selector img:hover {
     cursor: pointer;

@@ -48,7 +48,7 @@ const SectorBoss = (props) => {
         <div className="sector-boss-wrapper">
             <div className="hidden"> {JSON.stringify(props)} </div>
             <h2>Boss: {title}</h2>
-            {JSON.stringify(boss_team)}
+            <img src={boss_team.icon} alt={boss_team.description + " character icon"} className="boss-icon" />
             <div className="star-selector">
                 {star_icons}
             </div>
