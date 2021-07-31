@@ -109,13 +109,17 @@
 .sector-panel .panel-heading {
     display: flex;
     justify-content: space-between;
+    align-items: center;;
     padding: 10px 0px;
 }
 
-.sector-panel .panel-heading h1 {
+.sector-panel .panel-heading h1, .sector-panel .panel-heading h2 {
     padding: 0px;
     margin: 0px;
     display: inline-block;
+}
+.sector-panel .panel-heading .sector-keycard-icon{
+    max-height: 20px;
 }
 
 /** END SECTORS **/
@@ -128,7 +132,9 @@
     margin-bottom: 10px;
     padding: 10px;
 }
-
+.feat-wrapper h2{
+    margin: 0px;
+}
 .feat-wrapper.feat-complete {
     border-color: rgb(253 217 38);
     background: rgba(255, 255, 255, .3);
@@ -319,6 +325,12 @@
 
 .sector-boss-wrapper .star-selector img:hover {
     cursor: pointer;
+}
+.boss-keycard-icon{
+    max-height: 20px;
+}
+.boss-feat-keycard-icon{
+    max-height: 15px;
 }
 
 .sector-boss-wrapper .star-selector img.star:hover {

@@ -28,21 +28,21 @@ class Feat extends Component {
     handleMarkComplete = () => {
         let complete = this.state.complete;
         complete = (complete === "true") ? "false" : "true";
-        this.props.onProgressUpdate({ id: this.state.id, count: this.state.count, keycards: this.props.keycards, complete: complete });
+        this.props.onProgressUpdate({ id: this.state.id, count: this.state.count, keycards: this.props.keycards, complete: complete, sector: this.props.feat.sector });
     }
     updateCount = (e) => {
         let val = Number(e.target.value);
-        this.props.onProgressUpdate({ id: this.state.id, count: val, keycards: this.props.keycards });
+        this.props.onProgressUpdate({ id: this.state.id, count: val, keycards: this.props.keycards, sector: this.props.feat.sector  });
     }
     incrementCount = () => {
         let count = Number(this.state.count);
         count++;
-        this.props.onProgressUpdate({ id: this.state.id, count: count, keycards: this.props.keycards });
+        this.props.onProgressUpdate({ id: this.state.id, count: count, keycards: this.props.keycards, sector: this.props.feat.sector  });
     }
     decrementCount = () => {
         let count = Number(this.state.count);
         count--;
-        this.props.onProgressUpdate({ id: this.state.id, count: count, keycards: this.props.keycards });
+        this.props.onProgressUpdate({ id: this.state.id, count: count, keycards: this.props.keycards, sector: this.props.feat.sector  });
     }
 
     render() {

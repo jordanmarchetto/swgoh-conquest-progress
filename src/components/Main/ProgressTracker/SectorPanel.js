@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import BattleStars from "./BattleStars";
 import Feat from "./Feat";
 import SectorBoss from "./SectorBoss";
+import img_keycard from '../../../images/keycard.png';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
 class SectorPanel extends Component {
@@ -20,6 +21,49 @@ class SectorPanel extends Component {
         if (this.props.startOpen === true) {
             this.setState({ open: true });
         }
+    }
+
+    //figure out how many keys we've earned
+    calculate_earned_keycards = () => {
+        let count = 0;
+        //calculate feat keycards
+        let feats = this.props.progress.feats.filter(f => f.sector === this.props.sector.id && f.complete==="true");
+        feats.forEach(f => count += Number(f.keycards));
+
+        //from the progress array, grab the battle progress for this sector
+        let battle_stars = 0;
+        const battle_prog = this.props.progress.battle_progress.filter(b => b.sector_id === this.props.sector.id)[0];
+        if( battle_prog !== undefined){
+            battle_stars += battle_prog.stars.stars_1 * 1;
+            battle_stars += battle_prog.stars.stars_2 * 2;
+            battle_stars += battle_prog.stars.stars_3 * 3;
+        }
+        count += battle_stars;
+
+        //from the progress array, grab the battle progress for this sector
+        let boss_stars = 0;
+        const boss_progress = this.props.progress.boss_progress.filter(b => b.sector_id === this.props.sector.id)[0];
+        if(boss_progress !== undefined){
+            boss_progress.feats.filter(f => f.complete === "true").forEach(f => boss_stars += Number(f.keycards));
+            boss_stars += boss_progress.stars ? boss_progress.stars : 0;
+        }
+        count+= boss_stars;
+
+        return count;
+    }
+    //figure out how many keys we could have
+    calculate_max_keycards = () => {
+        let count = 0;
+        //count normal feats
+        const feats = this.props.sector.feats.filter(f => f.type === "sector" || f.type === "event");
+        feats.forEach(f => count += Number(this.props.sector.keycards_each));
+        const num_battles = this.props.sector.type !== "event" ? Number(this.props.sector.num_battles) : 0;
+        count += (3 * num_battles); //max battle stars
+        //count boss feats
+        const boss_feats = this.props.sector.feats.filter(f => f.type === "boss");
+        boss_feats.forEach(f => count += Number(this.props.sector.boss_feat_keycards));
+        count += this.props.sector.type !== "event" ? 3 : 0; //max boss battle stars
+        return count;
     }
 
     //open/close the panel when you click the heading div
@@ -67,10 +111,11 @@ class SectorPanel extends Component {
         }
 
         return (
-             
-            <div className={open === true ? "sector-panel panel-open": "sector-panel panel-closed"} id={"sector-panel-" + this.props.id}>
+
+            <div className={open === true ? "sector-panel panel-open" : "sector-panel panel-closed"} id={"sector-panel-" + this.props.id}>
                 <div className="panel-heading" onClick={this.togglePanel}>
                     <h1 className="panel-toggle">{title}</h1>
+                    <h2 className="sector-progress">{this.calculate_earned_keycards()} / {this.calculate_max_keycards()}<img src={img_keycard} alt="keycard icon" className="sector-keycard-icon" /></h2>
                     {open === true ? <ExpandLess fontSize="large" className="panel-toggle" /> : <ExpandMore fontSize="large" className="panel-toggle" />}
                 </div>
                 {open === true ?

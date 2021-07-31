@@ -3,6 +3,7 @@
  * container for a boss feats to be tracked, similar to Feat.js, but with extra features
  */
 import React from 'react';
+import img_keycard from '../../../images/keycard.png';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 
 const BossFeat = (props) => {
@@ -13,7 +14,7 @@ const BossFeat = (props) => {
     const { complete, boss_feat, boss_keycards, onFeatUpdate } = props;
 
     const handleFeatUpdate = () => {
-        console.log("BossFeat, updating")
+        //console.log("BossFeat, updating")
         const updated_complete = (complete === "true") ? "false" : "true";
         onFeatUpdate({ type: "boss_feat", id: boss_feat.id, boss_keycards: boss_keycards, complete: updated_complete });
     }
@@ -31,7 +32,7 @@ const BossFeat = (props) => {
                         />
                     }
                 />
-                <span><strong>{boss_feat.title}</strong> - {boss_feat.description} ({boss_keycards})</span>
+                <span><strong>{boss_feat.title}</strong> - {boss_feat.description} ({boss_keycards}<img src={img_keycard} alt="keycard icon" className="boss-feat-keycard-icon" />)</span>
             </div>
             <div className="hidden">{JSON.stringify(props)}</div>
         </div>

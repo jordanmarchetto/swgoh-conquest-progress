@@ -310,6 +310,7 @@ class ProgressTracker extends Component {
         let count = progress_update.count ? progress_update.count : "0";
         let keycards = progress_update.keycards ? progress_update.keycards : "0";
         let complete = progress_update.complete ? progress_update.complete : "false";
+        let sector = progress_update.sector ? progress_update.sector : "false";
         let progress = this.state.progress;
         //console.log("progress update received: " + JSON.stringify(progress_update));
 
@@ -341,7 +342,7 @@ class ProgressTracker extends Component {
         }
         //if we didn't find a matching feat, push a new one to the list
         if (!found_entry) {
-            progress.feats.push({ id: id, count: count, complete: complete, keycards: keycards });
+            progress.feats.push({ id: id, count: count, complete: complete, keycards: keycards, sector: sector });
         }
         //this.setState({ progress: progress });
         this.updateStateAndLocalStorage({ progress: progress });
