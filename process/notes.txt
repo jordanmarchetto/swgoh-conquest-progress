@@ -68,7 +68,9 @@ X - show sector progress, i.e. X/max_keycards_for_sector
 X - show boss keycard progress, i.e. X/total boss keycards (for feats + stars)
 X - share/save progress via string 
 X - store progress in browser
-x - switch to functional components (in many places)
+X - switch to functional components (in many places)
+X - support for normal AND hard
+X - add support email
 
 
 //https://github.com/jordanmarchetto/swgoh-conquest-progress/actions
@@ -77,11 +79,9 @@ x - switch to functional components (in many places)
 TODO:
 general:
 - add analytics
-- support for normal AND hard
 - add tooltips/help text, 
 	- hover text for things like: chest/crate info, sector keycard progress, 
 	X - for "keycard offset"
-X - add support email
 - deploy to gh pages
 team features:
 - pull teams' images from swgoh.gg
