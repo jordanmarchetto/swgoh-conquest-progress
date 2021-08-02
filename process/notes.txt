@@ -44,11 +44,7 @@ $("#feats tr").each(function(){
 console.log(output);
 
 
-//https://github.com/jordanmarchetto/swgoh-conquest-progress/actions
-//https://www.jmar.dev/swgoh-conquest/
-
-TODO:
-visuals/utility:
+COMPLETED:
 X - show sectors, goals per sectors
 X - show days left
 X - manual keycard adjust (in case something's off, just add an easy way to change it)
@@ -70,23 +66,35 @@ X - allow numbers to have text field inputs
 X - add boss icons
 X - show sector progress, i.e. X/max_keycards_for_sector
 X - show boss keycard progress, i.e. X/total boss keycards (for feats + stars)
+X - share/save progress via string 
+X - store progress in browser
+x - switch to functional components (in many places)
+
+
+//https://github.com/jordanmarchetto/swgoh-conquest-progress/actions
+//https://www.jmar.dev/swgoh-conquest/
+
+TODO:
+general:
+- add analytics
 - support for normal AND hard
-- add ability to set boss battle progress to 0 stars
 - add tooltips/help text, 
-	X - esp for "keycard offset"
+	- hover text for things like: chest/crate info, sector keycard progress, 
+	X - for "keycard offset"
+X - add support email
+- deploy to gh pages
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)
 - submit teams
 db/progress:
-X - share/save progress via string 
-X - store progress in browser
 - move template to DB, pull via api
 - calculate CAT/RC unlock progress
-beyond progress:
+future features:
 - add feat status "maybe" and add the hypothetical keycard count
 - manage datadisks
 - manage/suggest boosters
-x - switch to functional components
-- add analytics
-- add tests for empty progress
+- add unit tests for empty progress
+bugs:
+- add ability to set boss battle progress to 0 stars
+- mobile styles (menu button, boss feats, feat controls)

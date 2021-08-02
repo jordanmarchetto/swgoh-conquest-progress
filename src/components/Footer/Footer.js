@@ -21,7 +21,10 @@ const Footer = () => {
     return (
         <footer>
             <div className="footer-wrapper">
-                <a href="https://api.jmar.dev"><span className="footer-icon"><SubdirectoryArrowRight fontSize="small" /></span>Jordan Marchetto</a>
+                <a href="https://api.jmar.dev"><span className="footer-icon"><SubdirectoryArrowRight fontSize="small" /></span>Jordan Marchetto</a> 
+                &nbsp;&middot;&nbsp;Need Help? <a href = "mailto:swgoh.conquest.support@jmar.dev"> &#115;&#119;&#103;&#111;&#104;&#46;&#99;&#111;&#110;&#113;&#117;&#101;&#115;&#116;&#46;&#115;&#117;&#112;&#112;&#111;&#114;&#116;<span className="at-sign"></span>&#106;&#109;&#97;&#114;&#46;&#100;&#101;&#118;</a>
+
+
                 {process.env.REACT_APP_REGION === "development" ? <a href="#show-hidden" onClick={showHidden} className="show-hidden-button">dev: show hidden content</a> : ""}
             </div>
             <span className="hidden">{process.env.REACT_APP_REGION + " build"}</span>
