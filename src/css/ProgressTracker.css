@@ -23,6 +23,28 @@
 
 .extra-fields h3 {
     margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.extra-fields .mode-changer {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.extra-fields .mode-changer strong {
+    margin-right: 5px;
+}
+
+.extra-fields .mode-wrapper {
+    text-align: center;
+}
+
+.extra-fields .mode-wrapper label {
+    margin-right: 0px;
+}
+
+.extra-fields .mode-wrapper>span {
+    margin-right: 10px;
 }
 
 /** END GENERAL **/
@@ -109,7 +131,8 @@
 .sector-panel .panel-heading {
     display: flex;
     justify-content: space-between;
-    align-items: center;;
+    align-items: center;
+    ;
     padding: 10px 0px;
 }
 
@@ -118,7 +141,8 @@
     margin: 0px;
     display: inline-block;
 }
-.sector-panel .panel-heading .sector-keycard-icon{
+
+.sector-panel .panel-heading .sector-keycard-icon {
     max-height: 20px;
     margin-left: 5px;
 }
@@ -133,9 +157,11 @@
     margin-bottom: 10px;
     padding: 10px;
 }
-.feat-wrapper h2{
+
+.feat-wrapper h2 {
     margin: 0px;
 }
+
 .feat-wrapper.feat-complete {
     border-color: rgb(253 217 38);
     background: rgba(255, 255, 255, .3);
@@ -202,15 +228,17 @@
     text-decoration: underline;
 }
 
-.feat-number-input{
+.feat-number-input {
     max-width: 70px;
     margin-right: 10px;
 }
+
 .feat-progress-controls {
     display: flex;
     justify-content: space-between;
 }
-.feat-number-input + .big-slash{
+
+.feat-number-input+.big-slash {
     margin-left: 10px;
 }
 
@@ -320,17 +348,20 @@
 .sector-boss-wrapper {
     padding: 10px;
 }
-.sector-boss-wrapper .boss-icon{
+
+.sector-boss-wrapper .boss-icon {
     max-width: 66px;
 }
 
 .sector-boss-wrapper .star-selector img:hover {
     cursor: pointer;
 }
-.boss-keycard-icon{
+
+.boss-keycard-icon {
     max-height: 20px;
 }
-.boss-feat-keycard-icon{
+
+.boss-feat-keycard-icon {
     max-height: 15px;
 }
 

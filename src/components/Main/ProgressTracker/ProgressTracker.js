@@ -7,7 +7,7 @@
 import React, { Component } from 'react';
 import ChestProgress from './ChestProgress';
 import SectorPanel from './SectorPanel';
-import { TextField } from '@material-ui/core';
+import { FormGroup, FormControlLabel, Switch, TextField } from '@material-ui/core';
 //css:
 import '../../../css/ProgressTracker.css';
 //images:
@@ -141,21 +141,28 @@ class ProgressTracker extends Component {
                 { id: "79", type: "boss", mode: "normal", title: "Recovery Expert", description: "Recover at least 300,000 points of Health", goal: "1", tags: [], sector: "5", active: "true" },
             ],
             chests: [
-                { id: "0", description: "Hard-01", keycards_needed: "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 20, icon: img_shard_razor_crest },] },
-                { id: "1", description: "Hard-02", keycards_needed: "120", icon: img_crate_02, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 30, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 24, icon: img_shard_razor_crest },] },
-                { id: "2", description: "Hard-03", keycards_needed: "155", icon: img_crate_03, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 35, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 28, icon: img_shard_razor_crest },] },
-                { id: "3", description: "Hard-04", keycards_needed: "255", icon: img_crate_04, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 40, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 32, icon: img_shard_razor_crest },] },
-                { id: "4", description: "Hard-05", keycards_needed: "290", icon: img_crate_05, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 50, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 36, icon: img_shard_razor_crest },] },
-                { id: "5", description: "Hard-06", keycards_needed: "360", icon: img_crate_06, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 65, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 40, icon: img_shard_razor_crest },] },
-                { id: "6", description: "Hard-07", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 44, icon: img_shard_razor_crest },] },
+                { id: "0", description: "Hard-01", mode: "hard", keycards_needed: "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 20, icon: img_shard_razor_crest },] },
+                { id: "1", description: "Normal-01", mode: "normal", keycards_needed: "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 0, icon: img_shard_commander_ahsoka_tano }] },
+                { id: "2", description: "Hard-02", mode: "hard", keycards_needed: "120", icon: img_crate_02, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 30, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 24, icon: img_shard_razor_crest },] },
+                { id: "3", description: "Normal-02", mode: "normal", keycards_needed: "120", icon: img_crate_02, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 0, icon: img_shard_commander_ahsoka_tano }] },
+                { id: "4", description: "Hard-03", mode: "hard", keycards_needed: "155", icon: img_crate_03, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 35, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 28, icon: img_shard_razor_crest },] },
+                { id: "5", description: "Normal-03", mode: "normal", keycards_needed: "155", icon: img_crate_03, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 5, icon: img_shard_commander_ahsoka_tano }] },
+                { id: "6", description: "Hard-04", mode: "hard", keycards_needed: "255", icon: img_crate_04, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 40, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 32, icon: img_shard_razor_crest },] },
+                { id: "7", description: "Normal-04", mode: "normal", keycards_needed: "255", icon: img_crate_04, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 10, icon: img_shard_commander_ahsoka_tano }] },
+                { id: "8", description: "Hard-05", mode: "hard", keycards_needed: "290", icon: img_crate_05, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 50, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 36, icon: img_shard_razor_crest },] },
+                { id: "9", description: "Normal-05", mode: "normal", keycards_needed: "290", icon: img_crate_05, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 15, icon: img_shard_commander_ahsoka_tano }] },
+                { id: "10", description: "Hard-06", mode: "hard", keycards_needed: "360", icon: img_crate_06, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 65, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 40, icon: img_shard_razor_crest },] },
+                { id: "11", description: "Normal-06", mode: "normal", keycards_needed: "360", icon: img_crate_06, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 20, icon: img_shard_commander_ahsoka_tano }] },
+                { id: "12", description: "Hard-07", mode: "hard", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 90, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 44, icon: img_shard_razor_crest },] },
+                { id: "13", description: "Normal-07", mode: "normal", keycards_needed: "425", icon: img_crate_07, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25, icon: img_shard_commander_ahsoka_tano }] },
             ],
             sectors: [
                 { id: "0", title: "Event Feats", type: "event", feats: [], keycards_each: "9" },
                 { id: "1", title: "Sector 1", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "Padme", icon: icon_character_padme } },
-                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "GAS", icon: icon_character_gas  } },
-                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "4", boss_team: { description: "SEE", icon: icon_character_see  } },
-                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "5", boss_team: { description: "GLRey", icon: icon_character_rey  } },
-                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13", boss_feat_keycards: "6", boss_team: { description: "SLKR", icon: icon_character_slkr  } },
+                { id: "2", title: "Sector 2", type: "sector", feats: [], keycards_each: "5", num_battles: "13", boss_feat_keycards: "3", boss_team: { description: "GAS", icon: icon_character_gas } },
+                { id: "3", title: "Sector 3", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "4", boss_team: { description: "SEE", icon: icon_character_see } },
+                { id: "4", title: "Sector 4", type: "sector", feats: [], keycards_each: "10", num_battles: "13", boss_feat_keycards: "5", boss_team: { description: "GLRey", icon: icon_character_rey } },
+                { id: "5", title: "Sector 5", type: "sector", feats: [], keycards_each: "15", num_battles: "13", boss_feat_keycards: "6", boss_team: { description: "SLKR", icon: icon_character_slkr } },
             ]
         };
 
@@ -236,7 +243,7 @@ class ProgressTracker extends Component {
         progress.keycards = keycard_count;
 
         //figure out what chest we're on
-        const chests = this.state.conquest_template.chests;
+        const chests = this.state.conquest_template.chests.filter(c => c.mode === progress.mode);
         let active_chest = false;
         let prev_chest_max = 0; //track the last chest, so we can come up with more meaningful chest %
         let prev_chest = { keycards_needed: 0 }; //in ChestProgress, we'll do keycards/keycards_needed, and we want it to be for the current chest
@@ -281,6 +288,19 @@ class ProgressTracker extends Component {
             const progress_item = progress.feats.filter(feat => feat.id === id);
             return progress_item[0] ? progress_item[0] : {};
         }
+    }
+
+    //updates just the difficulty field of our progress
+    updateConquestMode = (e) => {
+        let progress = this.state.progress;
+        //default to normal 
+        const current_mode = progress.mode?progress.mode:"normal";
+        //assign it to the reverse
+        progress.mode = current_mode === "normal"?"hard":"normal";
+        //push to state
+        this.updateStateAndLocalStorage({progress: progress});
+        this.findActiveFeats();
+        this.calculateKeycards();
     }
 
     //handler for changing the keycard offset
@@ -421,40 +441,53 @@ class ProgressTracker extends Component {
                     progress: {JSON.stringify(progress)}
                     <br />
                 </div>
-                <ChestProgress keycards={progress.keycards} active_chest={active_chest} prev_chest_max={prev_chest_max} end_date={end_date}/>
+                <ChestProgress keycards={progress.keycards} active_chest={active_chest} prev_chest_max={prev_chest_max} end_date={end_date} />
                 {sectors}
                 <div className="extra-fields">
-                    <h3>Additional Information</h3>
-                    <TextField
-                        id="keycard_offset"
-                        label="Keycard Offset"
-                        type="number"
-                        name="keycard_offset"
-                        helperText="Add a manual adjustment to your keycard total."
-                        value={progress.keycard_offset}
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        variant="outlined"
-                        onChange={this.updateKeycardOffset}
-                    />
-                    <br />
-                    <br />
-                    <TextField
-                        id="progress_notes"
-                        label="Notes"
-                        multiline
-                        rows={4}
-                        type="number"
-                        placeholder="Notes"
-                        value={progress.notes}
-                        onChange={this.updateProgressNotes}
-                        name="progress_notes"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
-                        variant="outlined"
-                    />
+                    <FormGroup>
+                        <h3>Additional Information</h3>
+                        <div className="mode-changer">
+                            <strong>Conquest Difficulty</strong>
+                            <div className="mode-wrapper">
+                            <span>Normal</span>
+                            <FormControlLabel
+                                control={<Switch checked={progress.mode === "hard"} onChange={this.updateConquestMode} />}
+                            />
+                            <span>Hard</span>
+                            </div>
+                        </div>
+                        <TextField
+                            id="keycard_offset"
+                            label="Keycard Offset"
+                            type="number"
+                            name="keycard_offset"
+                            helperText="Add a manual adjustment to your keycard total."
+                            value={progress.keycard_offset}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            variant="outlined"
+                            onChange={this.updateKeycardOffset}
+                        />
+                        <br />
+                        <br />
+                        <TextField
+                            id="progress_notes"
+                            label="Notes"
+                            multiline
+                            rows={4}
+                            type="number"
+                            placeholder="Notes"
+                            value={progress.notes}
+                            onChange={this.updateProgressNotes}
+                            name="progress_notes"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            variant="outlined"
+                        />
+                    </FormGroup>
+
                 </div>
             </div>
         )
