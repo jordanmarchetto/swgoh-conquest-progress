@@ -120,6 +120,7 @@
 }
 .sector-panel .panel-heading .sector-keycard-icon{
     max-height: 20px;
+    margin-left: 5px;
 }
 
 /** END SECTORS **/
