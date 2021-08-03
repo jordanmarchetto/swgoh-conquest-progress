@@ -23,7 +23,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" >
+      <div>
         <Header menuOpen={this.state.menuOpen} title={process.env.REACT_APP_TITLE} handleMenuToggle={(state) => this.handleMenuToggle(state)} />
         <main>
           <ProgressTracker />
