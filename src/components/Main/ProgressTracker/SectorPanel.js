@@ -7,6 +7,7 @@ import BattleStars from "./BattleStars";
 import Feat from "./Feat";
 import SectorBoss from "./SectorBoss";
 import img_keycard from '../../../images/keycard.png';
+import { Tooltip } from '@material-ui/core';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
 class SectorPanel extends Component {
@@ -115,7 +116,7 @@ class SectorPanel extends Component {
             <div className={open === true ? "sector-panel panel-open" : "sector-panel panel-closed"} id={"sector-panel-" + this.props.id}>
                 <div className="panel-heading" onClick={this.togglePanel}>
                     <h1 className="panel-toggle">{title}</h1>
-                    <h2 className="sector-progress">{this.calculate_earned_keycards()} / {this.calculate_max_keycards()}<img src={img_keycard} alt="keycard icon" className="sector-keycard-icon" /></h2>
+                    <Tooltip title="Progress on this sector" arrow placement="top"><h2 className="sector-progress">{this.calculate_earned_keycards()} / {this.calculate_max_keycards()}<img src={img_keycard} alt="keycard icon" className="sector-keycard-icon" /></h2></Tooltip>
                     {open === true ? <ExpandLess fontSize="large" className="panel-toggle" /> : <ExpandMore fontSize="large" className="panel-toggle" />}
                 </div>
                 {open === true ?

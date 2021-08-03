@@ -71,6 +71,10 @@ X - store progress in browser
 X - switch to functional components (in many places)
 X - support for normal AND hard
 X - add support email
+X - add tooltips/help text, 
+	X - https://material-ui.com/components/tooltips/
+	X - hover text for things like: chest/crate info, sector keycard progress, 
+	X - for "keycard offset"
 
 
 //https://github.com/jordanmarchetto/swgoh-conquest-progress/actions
@@ -79,10 +83,8 @@ X - add support email
 TODO:
 general:
 - add analytics
-- add tooltips/help text, 
-	- hover text for things like: chest/crate info, sector keycard progress, 
-	X - for "keycard offset"
 - deploy to gh pages
+- update save/load to use material dialogs: https://material-ui.com/components/dialogs/
 team features:
 - pull teams' images from swgoh.gg
 - recommend teams based on feat (pull from swgoh.gg?)

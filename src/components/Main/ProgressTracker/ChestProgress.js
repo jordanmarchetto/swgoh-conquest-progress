@@ -6,20 +6,20 @@ import img_keycard from '../../../images/keycard.png';
 //https://github.com/gm0t/react-sticky-el
 import Sticky from 'react-sticky-el';
 import TimeLeft from './TimeLeft';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Tooltip } from '@material-ui/core';
 import React from 'react';
 import { ExpandMore, ExpandLess } from '@material-ui/icons';
 
 const ChestProgress = ({ keycards, active_chest, prev_chest_max, end_date }) => {
     //{ id: "0", description: "Hard-01", keycards_needed: "65", rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25 }, { item_name: "Razor Crest", quantity: 20 },] },
-    const { description, keycards_needed, rewards, icon } = active_chest;
+    const { description, keycards_needed, rewards, icon, mode } = active_chest;
 
     //state tracking for toggling rewards
     const [rewardsOpen, setRewardsOpen] = React.useState(false);
     const toggleRewardsOpen = () => setRewardsOpen(open => !open);
 
     //get the jsx for the rewards in this crate
-    const rewards_jsx = rewards ? rewards.map(r => <div key={r.item_name} className="reward-row">{r.item_name} <img src={r.icon} alt={r.item_name + " icon"} className="reward-icon" />x{r.quantity}</div>) : '';
+    const rewards_jsx = rewards ? rewards.map(r => <div key={r.item_name} className="reward-row">{r.item_name} <Tooltip title={r.item_name + " Character Shards"} arrow placement="top"><img src={r.icon} alt={r.item_name + " icon"} className="reward-icon" /></Tooltip>x{r.quantity}</div>) : '';
 
     //calc the progress percent
     const progress_percent = ((Number(keycards) - prev_chest_max) / (Number(keycards_needed) - prev_chest_max)) * 100;
@@ -30,7 +30,9 @@ const ChestProgress = ({ keycards, active_chest, prev_chest_max, end_date }) => 
                 <h1 className="hide-on-stuck">Chest Progress - {description}</h1>
                 <div className="keycard-progress-wrapper">
                     <p className="crate-keycard-progress">
+                    <Tooltip title={description + " Crate (" + mode + ")"} arrow placement="top">
                         <img src={icon} alt={description + " crate icon"} className="crate-icon" />
+                        </Tooltip>
                         {keycards} / {keycards_needed} <img src={img_keycard} alt="keycard icon" className="currency-icon" /><br />
                     </p>
                     <div className="progress-bar-wrapper">
