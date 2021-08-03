@@ -177,7 +177,8 @@ class ProgressTracker extends Component {
             boss_progress: [{ sector_id: "0", stars: 0, feats: [{ id: "0", complete: "false", keycards: "0" }] }]
         }
         //get progress from local storage (if possible)
-        const DATA_CONQUEST_PROGRESS = localStorage.getItem('conquest_progress') ? JSON.parse(localStorage.getItem('conquest_progress')) : DEFAULT_CONQUEST_PROGRESS;
+        let DATA_CONQUEST_PROGRESS = localStorage.getItem('conquest_progress') ? JSON.parse(localStorage.getItem('conquest_progress')) : DEFAULT_CONQUEST_PROGRESS;
+        DATA_CONQUEST_PROGRESS = DATA_CONQUEST_PROGRESS === null ? DEFAULT_CONQUEST_PROGRESS: DATA_CONQUEST_PROGRESS;
         //const DATA_CONQUEST_PROGRESS = DEFAULT_CONQUEST_PROGRESS;
         //console.log("LOCAL STORAGE IS DISABLED, using:");
         //console.log(DATA_CONQUEST_PROGRESS);
