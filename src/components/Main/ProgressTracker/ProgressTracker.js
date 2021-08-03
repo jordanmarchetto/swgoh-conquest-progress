@@ -5,7 +5,7 @@
 
 //components
 import React, { Component } from 'react';
-import ChestProgress from './ChestProgress';
+import CrateProgress from './CrateProgress';
 import SectorPanel from './SectorPanel';
 import { FormGroup, FormControlLabel, Switch, TextField } from '@material-ui/core';
 //css:
@@ -140,7 +140,7 @@ class ProgressTracker extends Component {
                 { id: "78", type: "boss", mode: "hard", title: "Recovery Expert", description: "Recover at least 500,000 points of Health", goal: "1", tags: [], sector: "5", active: "true" },
                 { id: "79", type: "boss", mode: "normal", title: "Recovery Expert", description: "Recover at least 300,000 points of Health", goal: "1", tags: [], sector: "5", active: "true" },
             ],
-            chests: [
+            crates: [
                 { id: "0", crate_name: "hard_01", description: "Tier 1", mode: "hard", keycards_needed: "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 25, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 20, icon: img_shard_razor_crest },] },
                 { id: "1", crate_name: "normal_01", description: "Tier 1", mode: "normal", keycards_needed: "65", icon: img_crate_01, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 0, icon: img_shard_commander_ahsoka_tano }] },
                 { id: "2", crate_name: "hard_02", description: "Tier 2", mode: "hard", keycards_needed: "120", icon: img_crate_02, rewards: [{ item_name: "Commander Ahsoka Tano", quantity: 30, icon: img_shard_commander_ahsoka_tano }, { item_name: "Razor Crest", quantity: 24, icon: img_shard_razor_crest },] },
@@ -187,8 +187,8 @@ class ProgressTracker extends Component {
             teams: DATA_TEAMS,
             conquest_template: DATA_CONQUEST_TEMPLATE,
             progress: DATA_CONQUEST_PROGRESS,
-            active_chest: {},
-            prev_chest_max: 0
+            active_crate: {},
+            prev_crate_max: 0
         };
 
     }
@@ -242,28 +242,28 @@ class ProgressTracker extends Component {
         //update the progress obj 
         progress.keycards = keycard_count;
 
-        //figure out what chest we're on
-        const chests = this.state.conquest_template.chests.filter(c => c.mode === progress.mode);
-        let active_chest = false;
-        let prev_chest_max = 0; //track the last chest, so we can come up with more meaningful chest %
-        let prev_chest = { keycards_needed: 0 }; //in ChestProgress, we'll do keycards/keycards_needed, and we want it to be for the current chest
+        //figure out what crate we're on
+        const crates = this.state.conquest_template.crates.filter(c => c.mode === progress.mode);
+        let active_crate = false;
+        let prev_crate_max = 0; //track the last crate, so we can come up with more meaningful crate %
+        let prev_crate = { keycards_needed: 0 }; //in CrateProgress, we'll do keycards/keycards_needed, and we want it to be for the current crate
 
-        //loop through the chests in order and snag the highest, valid chest
-        chests.forEach(chest => {
-            if (!active_chest && keycard_count < chest.keycards_needed) {
-                active_chest = chest;
-                prev_chest_max = prev_chest.keycards_needed;
+        //loop through the crates in order and snag the highest, valid crate
+        crates.forEach(crate => {
+            if (!active_crate && keycard_count < crate.keycards_needed) {
+                active_crate = crate;
+                prev_crate_max = prev_crate.keycards_needed;
             }
-            prev_chest = chest;
+            prev_crate = crate;
         })
 
-        //in case we go over (somehow? via offset?), just make sure we select A chest
-        if (active_chest === false) {
-            active_chest = chests[chests.length - 1];
+        //in case we go over (somehow? via offset?), just make sure we select A crate
+        if (active_crate === false) {
+            active_crate = crates[crates.length - 1];
         }
 
         //push it to the state
-        this.updateStateAndLocalStorage({ progress: progress, active_chest: active_chest, prev_chest_max: prev_chest_max });
+        this.updateStateAndLocalStorage({ progress: progress, active_crate: active_crate, prev_crate_max: prev_crate_max });
     }
 
     //runs after first render(), but that's fine
@@ -423,7 +423,7 @@ class ProgressTracker extends Component {
     }
 
     render() {
-        const { progress, active_chest, prev_chest_max } = this.state;
+        const { progress, active_crate, prev_crate_max } = this.state;
         const end_date = this.state.conquest_template.end_date;
 
         const sectors = [];
@@ -441,7 +441,7 @@ class ProgressTracker extends Component {
                     progress: {JSON.stringify(progress)}
                     <br />
                 </div>
-                <ChestProgress keycards={progress.keycards} active_chest={active_chest} prev_chest_max={prev_chest_max} end_date={end_date} />
+                <CrateProgress keycards={progress.keycards} active_crate={active_crate} prev_crate_max={prev_crate_max} end_date={end_date} />
                 {sectors}
                 <div className="extra-fields">
                     <FormGroup>
