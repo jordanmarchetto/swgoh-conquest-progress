@@ -92,6 +92,8 @@ team features:
 - submit teams
 db/progress:
 - move template to DB, pull via api
+	- to do this, we'll have to change how images are used site-wide, since they can't be variables
+	- images should probably get moved to /public and referenced from there
 - calculate CAT/RC unlock progress
 future features:
 - add feat status "maybe" and add the hypothetical keycard count

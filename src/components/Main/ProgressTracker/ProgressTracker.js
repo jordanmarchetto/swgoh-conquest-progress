@@ -53,6 +53,7 @@ class ProgressTracker extends Component {
 
         //Data structure for conquest, all feats, etc
         //https://wiki.swgoh.help/wiki/Conquest
+	//to move this into a json file/call, we'll have to change how images are referenced, which I'm too lazy to do.
         const DATA_CONQUEST_TEMPLATE = {
             end_date: "Mon Jul 19 2021 14:00:00 GMT-0400 (Eastern Daylight Time)",
             all_feats: [
